@@ -21,6 +21,46 @@ Solo companion PWA for Twilight Imperium 4th Edition. Solves the core problem: f
 3. **Context buttons** — tap to see filtered reminders grouped by timing
 4. **Production calculator** — unit picker with cost/production summary
 
+## Game Terminology & Hierarchy
+
+Official TI4 terminology used throughout the app and data. These map to strict TypeScript enums.
+
+### Phases
+
+`strategy` | `action` | `status` | `agenda`
+
+### Action Types (within action phase)
+
+`tactical` | `strategic` | `component`
+
+- **tactical** — activate system, then steps in order
+- **strategic** — use primary or secondary of a strategy card
+- **component** — play action cards, use tech abilities, purge relics, etc.
+
+### Steps (within tactical action, in order)
+
+`activation` → `movement` → `space_combat` → `invasion` → `production`
+
+### Sub-steps
+
+**space_combat sub-steps (in order):**
+`space_cannon_offense` → `anti_fighter_barrage` → `announce_retreat` → `combat_rolls` → `assign_hits` → `retreat`
+
+**invasion sub-steps (in order):**
+`bombardment` → `commit_ground_forces` → `space_cannon_defense` → `ground_combat` → `establish_control`
+
+**status phase steps (in order):**
+`score_objectives` → `reveal_public_objective` → `draw_action_cards` → `remove_command_tokens` → `gain_redistribute_command_tokens` → `ready_cards` → `repair_units` → `return_strategy_cards`
+
+### Timing (when within a step/sub-step)
+
+`before` | `after` | `when` | `start` | `end` | `during`
+
+### Misc Windows / Triggers
+
+Some abilities trigger on specific game events outside the step hierarchy:
+`refresh_commodities` | `trade` | `produce_unit` | `research_technology` | ... (TBD — defined fully in task 1)
+
 ## Data Model
 
 ### Unified PlayTiming
@@ -28,29 +68,49 @@ Solo companion PWA for Twilight Imperium 4th Edition. Solves the core problem: f
 All displayable items (techs, action cards, faction abilities, promissory notes, leaders, unit abilities, mech abilities, relics) share this structure:
 
 ```typescript
-type Context = "produce" | "space-combat" | "ground-combat" | "bombardment" | "invasion" | "space-cannon" | "movement" | "agenda" | "status-phase" | "action"
+// Phases
+type Phase = "strategy" | "action" | "status" | "agenda"
 
-// "window" = the specific step (e.g. anti-fighter barrage, bombardment step)
-// "timing" = when within that window (start, during, end, after)
-// Exact enum values TBD — defining these is implementation task 1
+// Action types
+type ActionType = "tactical" | "strategic" | "component"
 
-type Window = string   // TBD: e.g. "anti-fighter-barrage" | "assign-hits" | ...
-type Timing = "start" | "during" | "end" | "after" | "when" | "instead"
+// Steps within tactical action
+type TacticalStep = "activation" | "movement" | "space_combat" | "invasion" | "production"
+
+// Sub-steps
+type SpaceCombatSubStep = "space_cannon_offense" | "anti_fighter_barrage" | "announce_retreat" | "combat_rolls" | "assign_hits" | "retreat"
+type InvasionSubStep = "bombardment" | "commit_ground_forces" | "space_cannon_defense" | "ground_combat" | "establish_control"
+type StatusStep = "score_objectives" | "reveal_public_objective" | "draw_action_cards" | "remove_command_tokens" | "gain_redistribute_command_tokens" | "ready_cards" | "repair_units" | "return_strategy_cards"
+
+// A window is a dot-path through the hierarchy
+// e.g. "tactical.space_combat.anti_fighter_barrage"
+// e.g. "tactical.production"
+// e.g. "status.draw_action_cards"
+// e.g. "agenda"
+// Stored as a string but validated against the hierarchy
+type Window = string
+
+type Timing = "before" | "after" | "when" | "start" | "end" | "during"
+
+// Misc triggers outside the hierarchy
+type MiscTrigger = "refresh_commodities" | "trade" | string // TBD full list in task 1
 
 interface PlayTiming {
   wording: string              // original card text for display
-  context: Context[]
-  window?: Window[]            // specific step within context
-  timing?: Timing[]            // when within the window
+  window: Window               // dot-path: "tactical.space_combat.anti_fighter_barrage"
+  timing: Timing
   mustBeActivePlayer: boolean
+  miscTrigger?: MiscTrigger    // for events outside the step hierarchy
 }
 ```
 
-Every displayable item carries one or more `PlayTiming` objects. Passive effects (e.g. Sarween Tools) use `timing: ["during"]` with no specific window.
+Items can have multiple `PlayTiming` entries (array). Passive effects (e.g. Sarween Tools) use `window: "tactical.production"` with `timing: "during"`.
 
-All enums are strict TypeScript types — no arbitrary strings.
+All enums are strict TypeScript types — no arbitrary strings (except Window which is validated at build/test time against the hierarchy).
 
-**Note:** existing `playTiming2` in action-cards.json uses different field names (`phase`/`window` instead of `context`/`timing`). This spec is canonical — existing data migrates to match.
+**Context buttons on the dashboard map to windows.** Tapping "Space Combat" shows everything with a window starting with `tactical.space_combat`. Tapping "Status Phase" shows everything under `status.*`. The dot-path hierarchy makes filtering a simple prefix match.
+
+**Note:** existing `playTiming2` in action-cards.json uses different field names. This spec is canonical — existing data migrates to match.
 
 ### Omega / Replacement Cards
 
@@ -67,11 +127,13 @@ Faction abilities and mech abilities are implicit — derived from `factionId`, 
 ### Game State (IndexedDB)
 
 ```typescript
+type Expansion = "base" | "pok" | "codex-1" | "codex-2" | "codex-3" | "codex-4"
+
 interface Game {
   id: string
   name: string
   createdAt: Date
-  expansions: Expansion[]      // "base" | "pok" | "codex-1" | "codex-2" | "codex-3" | "codex-4"
+  expansions: Expansion[]
   factionId: string
   ownedTechIds: string[]
   ownedActionCards: { id: string, quantity: number }[]
@@ -93,7 +155,14 @@ Multiple concurrent games supported.
 - Select faction
 
 ### Game Dashboard
-- Grid of context buttons: Produce, Space Combat, Ground Combat, Invasion, Space Cannon, Bombardment, Movement, Agenda, Status Phase
+- Grid of context buttons mapping to window prefixes:
+  - **Movement** → `tactical.movement`
+  - **Space Combat** → `tactical.space_combat` (shows all sub-steps grouped chronologically)
+  - **Invasion** → `tactical.invasion` (shows all sub-steps grouped chronologically)
+  - **Production** → `tactical.production`
+  - **Agenda** → `agenda`
+  - **Status Phase** → `status` (shows all steps grouped chronologically)
+  - **Component Actions** → `component` (action cards, tech actions, relic purges)
 - "Manage" button to add/remove items
 
 ### Manage Screen
@@ -108,37 +177,35 @@ Multiple concurrent games supported.
 - Faction starting techs pre-added at game creation
 
 ### Context View
-- Reminders grouped by window in chronological order (top to bottom as phase progresses)
+- Reminders grouped by sub-step in chronological order (top to bottom as phase progresses)
 - Each item shows: name, source type (tech/action card/faction/promissory/leader/relic/mech), timing wording, effect summary
 - Only shows items that are owned AND unlocked AND relevant to this context
 - Faction abilities + mech abilities always included (implicit from faction)
 - Long-press any item → confirmation modal → removes from owned
 
-### Production Calculator (within Produce context view)
+### Production Calculator (within Production context view)
 - Appears below reminders (consistent: reminders always first, tools below)
 - Unit picker: tap to add/remove unit types
 - Shows: total cost (with modifiers applied), production capacity required
 - Uses upgraded unit stats when upgrade tech is owned (derived from ownedTechIds)
 
 ### Status Phase View
-- Same grouped-reminder pattern but ordered by status phase steps:
-  score objectives → draw action cards → gain CCs → ready cards → repair → return strategy cards
-- Modifiers shown inline (e.g. Neural Motivator under "draw action cards")
+- Same grouped-reminder pattern, ordered by status phase steps:
+  score_objectives → reveal_public_objective → draw_action_cards → remove_command_tokens → gain_redistribute_command_tokens → ready_cards → repair_units → return_strategy_cards
+- Modifiers shown inline (e.g. Neural Motivator under draw_action_cards)
 
 ## Data Enrichment
 
 All existing JSON files need review and enrichment:
 
-- Add `PlayTiming` objects to all item types
+- Add `PlayTiming` arrays to all item types
 - Standardize structure across all item types
 - Add generic promissory notes to data (currently missing)
 - Unit data needs cost/production/combat values + upgraded variants for calculator
 - Ensure `replaces` chains are correct for omega cards
-- **Task 1 of implementation**: define exact enum values for Context/Window/Timing by systematically reviewing all items
+- **Task 1 of implementation**: define full enum values for Window paths, Timing, and MiscTriggers by systematically reviewing all items and card text
 
 Thunders Edge content: auto-filtered out, expansion option disabled in UI.
-
-Exploration cards: out of scope for MVP (most are one-time effects, not persistent reminders).
 
 ## Testing
 
@@ -150,10 +217,10 @@ Exploration cards: out of scope for MVP (most are one-time effects, not persiste
 
 - Round/turn tracking
 - Planet tracking / exhaustion
+- Exploration cards (mostly planet value modifiers / one-time effects)
+- Legendary planet abilities (requires planet tracking)
 - Score/objective tracking
 - Multi-user / multiplayer
 - Backend / accounts
 - Thunders Edge content
-- Exploration cards
 - Rule engine / conditional logic (future extension — data structure supports it)
-- Strategy phase reminders
