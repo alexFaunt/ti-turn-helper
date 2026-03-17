@@ -1,0 +1,64 @@
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.newGameBtn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.gameList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.gameCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.gameLink {
+  display: flex;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  flex: 1;
+}
+
+.gameName {
+  font-weight: bold;
+}
+
+.gameFaction {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.deleteBtn {
+  color: #c00;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.empty {
+  color: #666;
+  text-align: center;
+}

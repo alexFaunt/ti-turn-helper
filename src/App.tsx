@@ -1,9 +1,12 @@
-function App() {
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HomeScreen } from './screens/HomeScreen'
+
+export function App() {
   return (
-    <div>
-      <h1>TI4 Turn Helper</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomeScreen />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
-
-export default App
