@@ -1,0 +1,39 @@
+.section {
+  margin-bottom: 1rem;
+}
+
+.groupHeading {
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.techGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.techBtn {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  background: white;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.techBtn:active {
+  opacity: 0.8;
+}
+
+.owned {
+  background: #2563eb;
+  color: white;
+  border-color: #1d4ed8;
+}

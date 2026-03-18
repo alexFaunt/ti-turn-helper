@@ -3,6 +3,7 @@ import { HomeScreen } from './screens/HomeScreen'
 import { SetupScreen } from './screens/SetupScreen'
 import { DashboardScreen } from './screens/DashboardScreen'
 import { ContextViewScreen } from './screens/ContextViewScreen'
+import { ManageScreen } from './screens/ManageScreen'
 
 export function App() {
   return (
@@ -12,7 +13,7 @@ export function App() {
         <Route path="/setup" element={<SetupScreen />} />
         <Route path="/game/:gameId" element={<DashboardScreen />} />
         <Route path="/game/:gameId/context/:windowPrefix" element={<ContextViewScreen />} />
-        <Route path="/game/:gameId/manage" element={<div>Manage (coming next)</div>} />
+        <Route path="/game/:gameId/manage" element={<ManageScreen />} />
       </Routes>
     </BrowserRouter>
   )
