@@ -1,0 +1,54 @@
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.homeBtn, .manageBtn {
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.headerInfo {
+  text-align: center;
+}
+
+.gameName {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.factionName {
+  font-size: 0.875rem;
+  color: #666;
+  margin: 0;
+}
+
+.buttonGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.contextBtn {
+  padding: 1.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  background: white;
+}
