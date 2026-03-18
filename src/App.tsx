@@ -7,7 +7,7 @@ import { ManageScreen } from './screens/ManageScreen'
 
 export function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/ti-turn-helper">
       <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path="/setup" element={<SetupScreen />} />
