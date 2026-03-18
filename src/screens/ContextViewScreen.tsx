@@ -56,6 +56,7 @@ export function ContextViewScreen() {
         {decodedPrefix === 'tactical.production' && (
           <ProductionCalculator
             hasSarween={game?.ownedTechIds.includes('sarween-tools') ?? false}
+            ownedTechIds={game?.ownedTechIds ?? []}
           />
         )}
       </div>

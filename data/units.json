@@ -95,5 +95,94 @@
     "combat": 6,
     "abilities": ["SUSTAIN DAMAGE"],
     "source": "pok"
+  },
+  {
+    "id": "dreadnought-2",
+    "name": "Dreadnought II",
+    "type": "dreadnought",
+    "cost": 4,
+    "combat": 5,
+    "move": 2,
+    "capacity": 1,
+    "abilities": ["SUSTAIN DAMAGE", "BOMBARDMENT 5"],
+    "source": "base",
+    "upgradeOf": "dreadnought-1",
+    "techId": "dreadnought-2"
+  },
+  {
+    "id": "cruiser-2",
+    "name": "Cruiser II",
+    "type": "cruiser",
+    "cost": 2,
+    "combat": 6,
+    "move": 3,
+    "capacity": 1,
+    "source": "base",
+    "upgradeOf": "cruiser-1",
+    "techId": "cruiser-2"
+  },
+  {
+    "id": "carrier-2",
+    "name": "Carrier II",
+    "type": "carrier",
+    "cost": 3,
+    "combat": 9,
+    "move": 2,
+    "capacity": 6,
+    "abilities": ["SUSTAIN DAMAGE"],
+    "source": "base",
+    "upgradeOf": "carrier-1",
+    "techId": "carrier-2"
+  },
+  {
+    "id": "destroyer-2",
+    "name": "Destroyer II",
+    "type": "destroyer",
+    "cost": 1,
+    "combat": 8,
+    "move": 2,
+    "abilities": ["ANTI-FIGHTER BARRAGE 6 (x3)"],
+    "source": "base",
+    "upgradeOf": "destroyer-1",
+    "techId": "destroyer-2"
+  },
+  {
+    "id": "fighter-2",
+    "name": "Fighter II",
+    "type": "fighter",
+    "cost": 0.5,
+    "combat": 8,
+    "move": 2,
+    "source": "base",
+    "upgradeOf": "fighter-1",
+    "techId": "fighter-2"
+  },
+  {
+    "id": "infantry-2",
+    "name": "Infantry II",
+    "type": "infantry",
+    "cost": 0.5,
+    "combat": 7,
+    "source": "base",
+    "upgradeOf": "infantry-1",
+    "techId": "infantry-2"
+  },
+  {
+    "id": "pds-2",
+    "name": "PDS II",
+    "type": "pds",
+    "abilities": ["SPACE CANNON 5", "PLANETARY SHIELD"],
+    "source": "base",
+    "upgradeOf": "pds-1",
+    "techId": "pds-2"
+  },
+  {
+    "id": "space-dock-2",
+    "name": "Space Dock II",
+    "type": "space-dock",
+    "abilities": ["PRODUCTION X (X = 4 + planet resource value)"],
+    "source": "base",
+    "upgradeOf": "space-dock-1",
+    "techId": "space-dock-2"
   }
 ]

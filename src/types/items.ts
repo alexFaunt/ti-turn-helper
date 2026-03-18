@@ -93,4 +93,6 @@ export interface Unit {
   capacity?: number
   abilities?: string[]
   source: string
+  upgradeOf?: string
+  techId?: string
 }

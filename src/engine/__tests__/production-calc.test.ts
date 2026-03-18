@@ -14,7 +14,7 @@ describe('calculateProduction', () => {
     const result = calculateProduction(
       { fighter: 2, carrier: 1 },
       baseUnits,
-      { hasSarween: false },
+      { hasSarween: false, ownedTechIds: [] },
     )
     expect(result.totalCost).toBe(4) // 0.5 + 0.5 + 3
     expect(result.productionUnits).toBe(3)
@@ -24,7 +24,7 @@ describe('calculateProduction', () => {
     const result = calculateProduction(
       { fighter: 2, carrier: 1 },
       baseUnits,
-      { hasSarween: true },
+      { hasSarween: true, ownedTechIds: [] },
     )
     expect(result.totalCost).toBe(3) // 4 - 1
   })
@@ -33,7 +33,7 @@ describe('calculateProduction', () => {
     const result = calculateProduction(
       { fighter: 1 },
       baseUnits,
-      { hasSarween: true },
+      { hasSarween: true, ownedTechIds: [] },
     )
     expect(result.totalCost).toBe(0) // 0.5 - 1, floored at 0
   })
@@ -42,7 +42,7 @@ describe('calculateProduction', () => {
     const result = calculateProduction(
       { fighter: 3, infantry: 2 },
       baseUnits,
-      { hasSarween: false },
+      { hasSarween: false, ownedTechIds: [] },
     )
     expect(result.productionUnits).toBe(5)
   })
@@ -51,11 +51,41 @@ describe('calculateProduction', () => {
     const result = calculateProduction(
       { fighter: 2, carrier: 1 },
       baseUnits,
-      { hasSarween: false },
+      { hasSarween: false, ownedTechIds: [] },
     )
     expect(result.breakdown).toEqual([
       { unitType: 'fighter', quantity: 2, unitCost: 0.5, lineCost: 1 },
       { unitType: 'carrier', quantity: 1, unitCost: 3, lineCost: 3 },
     ])
+  })
+
+  it('uses upgraded unit cost when tech owned', () => {
+    const allUnits: Unit[] = [
+      { id: 'carrier-1', name: 'Carrier I', type: 'carrier', cost: 3, source: 'base' },
+      { id: 'carrier-2', name: 'Carrier II', type: 'carrier', cost: 3, source: 'base', upgradeOf: 'carrier-1', techId: 'carrier-2' },
+      { id: 'cruiser-1', name: 'Cruiser I', type: 'cruiser', cost: 2, source: 'base' },
+      { id: 'cruiser-2', name: 'Cruiser II', type: 'cruiser', cost: 2, source: 'base', upgradeOf: 'cruiser-1', techId: 'cruiser-2' },
+    ]
+    // With carrier-2 tech, cost is same (3) but name should be Carrier II
+    const result = calculateProduction(
+      { carrier: 1, cruiser: 1 },
+      allUnits,
+      { hasSarween: false, ownedTechIds: ['carrier-2'] },
+    )
+    expect(result.totalCost).toBe(5) // 3 + 2
+    expect(result.productionUnits).toBe(2)
+  })
+
+  it('falls back to base unit when upgrade tech not owned', () => {
+    const allUnits: Unit[] = [
+      { id: 'cruiser-1', name: 'Cruiser I', type: 'cruiser', cost: 2, source: 'base' },
+      { id: 'cruiser-2', name: 'Cruiser II', type: 'cruiser', cost: 2, source: 'base', upgradeOf: 'cruiser-1', techId: 'cruiser-2' },
+    ]
+    const result = calculateProduction(
+      { cruiser: 1 },
+      allUnits,
+      { hasSarween: false, ownedTechIds: [] },
+    )
+    expect(result.totalCost).toBe(2)
   })
 })

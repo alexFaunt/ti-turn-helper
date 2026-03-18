@@ -2,6 +2,7 @@ import type { Unit } from '../types/items'
 
 export interface ProductionModifiers {
   hasSarween: boolean
+  ownedTechIds: string[]
 }
 
 export interface CostBreakdown {
@@ -18,11 +19,33 @@ export interface ProductionResult {
   sarweenDiscount: number
 }
 
+export function resolveUnitsForPlayer(allUnits: Unit[], ownedTechIds: string[]): Unit[] {
+  const techSet = new Set(ownedTechIds)
+  const typeToUnit = new Map<string, Unit>()
+
+  // Start with base units (no upgradeOf)
+  for (const unit of allUnits) {
+    if (!unit.upgradeOf) {
+      typeToUnit.set(unit.type, unit)
+    }
+  }
+
+  // Override with upgraded versions if tech owned
+  for (const unit of allUnits) {
+    if (unit.techId && techSet.has(unit.techId)) {
+      typeToUnit.set(unit.type, unit)
+    }
+  }
+
+  return [...typeToUnit.values()]
+}
+
 export function calculateProduction(
   selection: Record<string, number>,
-  units: Unit[],
+  allUnits: Unit[],
   modifiers: ProductionModifiers,
 ): ProductionResult {
+  const units = resolveUnitsForPlayer(allUnits, modifiers.ownedTechIds)
   const breakdown: CostBreakdown[] = []
   let rawCost = 0
   let productionUnits = 0

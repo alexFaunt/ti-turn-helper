@@ -1,19 +1,21 @@
 import { useState, useMemo } from 'react'
-import { calculateProduction } from '../engine/production-calc'
+import { calculateProduction, resolveUnitsForPlayer } from '../engine/production-calc'
 import { loadUnits } from '../data'
 import styles from './ProductionCalculator.module.css'
 
 interface ProductionCalculatorProps {
   hasSarween: boolean
+  ownedTechIds: string[]
 }
 
 const PRODUCIBLE_TYPES = [
   'dreadnought', 'cruiser', 'carrier', 'destroyer', 'fighter', 'infantry', 'pds', 'war-sun', 'mech',
 ]
 
-export function ProductionCalculator({ hasSarween }: ProductionCalculatorProps) {
+export function ProductionCalculator({ hasSarween, ownedTechIds }: ProductionCalculatorProps) {
   const [selection, setSelection] = useState<Record<string, number>>({})
   const units = useMemo(() => loadUnits(), [])
+  const resolvedUnits = useMemo(() => resolveUnitsForPlayer(units, ownedTechIds), [units, ownedTechIds])
 
   function adjust(unitType: string, delta: number) {
     setSelection(prev => {
@@ -27,14 +29,14 @@ export function ProductionCalculator({ hasSarween }: ProductionCalculatorProps) 
     })
   }
 
-  const result = calculateProduction(selection, units, { hasSarween })
+  const result = calculateProduction(selection, units, { hasSarween, ownedTechIds })
 
   return (
     <div className={styles.calculator}>
       <h3 className={styles.heading}>Production Calculator</h3>
       <div className={styles.unitGrid}>
         {PRODUCIBLE_TYPES.map(type => {
-          const unit = units.find(u => u.type === type)
+          const unit = resolvedUnits.find(u => u.type === type)
           if (!unit) return null
           const qty = selection[type] ?? 0
           return (
