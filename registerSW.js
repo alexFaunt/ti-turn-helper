@@ -1,0 +1,1 @@
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/ti-turn-helper/sw.js', { scope: '/ti-turn-helper/' })})}
