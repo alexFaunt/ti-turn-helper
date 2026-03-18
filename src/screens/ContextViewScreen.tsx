@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useGameContext } from '../hooks/use-game-context'
 import { WindowGroupDisplay } from '../components/WindowGroupDisplay'
 import { ConfirmModal } from '../components/ConfirmModal'
+import { ProductionCalculator } from '../components/ProductionCalculator'
 import { windowLabel } from '../engine'
 import styles from './ContextViewScreen.module.css'
 
@@ -15,7 +16,7 @@ export function ContextViewScreen() {
   const { gameId, windowPrefix } = useParams<{ gameId: string; windowPrefix: string }>()
   const navigate = useNavigate()
   const decodedPrefix = decodeURIComponent(windowPrefix ?? '')
-  const { groups, loading, removeItem } = useGameContext(gameId, decodedPrefix)
+  const { game, groups, loading, removeItem } = useGameContext(gameId, decodedPrefix)
   const [pendingRemoval, setPendingRemoval] = useState<PendingRemoval | null>(null)
 
   function handleLongPress(itemId: string, itemName: string) {
@@ -51,6 +52,11 @@ export function ContextViewScreen() {
               onLongPressItem={handleLongPress}
             />
           ))
+        )}
+        {decodedPrefix === 'tactical.production' && (
+          <ProductionCalculator
+            hasSarween={game?.ownedTechIds.includes('sarween-tools') ?? false}
+          />
         )}
       </div>
 

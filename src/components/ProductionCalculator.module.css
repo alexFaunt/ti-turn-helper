@@ -1,0 +1,65 @@
+.calculator {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  background: #fafafa;
+}
+
+.heading {
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+}
+
+.unitGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.unitRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.unitName {
+  font-size: 0.875rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.controls button {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.qty {
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.summary {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #ddd;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.discount {
+  font-weight: normal;
+  font-size: 0.8rem;
+  color: #666;
+}
