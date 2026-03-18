@@ -1,0 +1,37 @@
+.card {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  background: white;
+  user-select: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.name { font-weight: bold; }
+
+.sourceType {
+  font-size: 0.75rem;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  background: #eee;
+  color: #666;
+}
+
+.timing {
+  font-size: 0.8rem;
+  color: #0066cc;
+  margin: 0.25rem 0;
+  font-style: italic;
+}
+
+.description {
+  font-size: 0.875rem;
+  margin: 0;
+  color: #333;
+}
