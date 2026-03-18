@@ -5,10 +5,20 @@
     "abilities": [
       {
         "name": "Mitosis",
-        "description": "Your space docks cannot produce infantry. At the start of the status phase, place 1 infantry from your reinforcements on any planet you control."
+        "description": "Your space docks cannot produce infantry. At the start of the status phase, place 1 infantry from your reinforcements on any planet you control.",
+        "playTimings": [
+          {
+            "wording": "At the start of the status phase, place 1 infantry",
+            "window": "status",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
-    "startingTech": ["magen-defense-grid"],
+    "startingTech": [
+      "magen-defense-grid"
+    ],
     "startingUnits": {
       "carrier": 1,
       "cruiser": 1,
@@ -32,26 +42,58 @@
         "name": "Letani Ospha",
         "title": "Arborec Agent",
         "ability": "ACTION: Exhaust this card and choose a player's non-fighter ship; that player may replace that ship with one from their reinforcements that costs up to 2 more than the replaced ship.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Dirzuga Rophal",
         "title": "Arborec Commander",
         "ability": "After another player activates a system that contains 1 or more of your units that have PRODUCTION: You may produce 1 unit in that system.",
-        "unlockCondition": "Have 12 Ground Forces on Planets you control."
+        "unlockCondition": "Have 12 Ground Forces on Planets you control.",
+        "playTimings": [
+          {
+            "wording": "After another player activates a system with your PRODUCTION units",
+            "window": "tactical.activation",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Letani Miasmiala",
         "title": "Ultrasonic Emitter",
         "ability": "ACTION: Produce any number of units in any number of systems that contain 1 or more of your ground forces. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Letani Behemoth",
-      "description": "DEPLOY: When you would use your MITOSIS faction ability you may replace 1 of your infantry with 1 mech from your reinforcements instead. SUSTAIN DAMAGE. PRODUCTION 2. PLANETARY SHIELD."
+      "description": "DEPLOY: When you would use your MITOSIS faction ability you may replace 1 of your infantry with 1 mech from your reinforcements instead. SUSTAIN DAMAGE. PRODUCTION 2. PLANETARY SHIELD.",
+      "playTimings": [
+        {
+          "wording": "DEPLOY: When you use MITOSIS, replace infantry with mech",
+          "window": "status",
+          "timing": "start",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flavorText": "Do you hear, flesh-thing? The harmonies of the Arborec? Your golems of metal and noise and fire have deafened you to the symphony.",
     "source": "base"
@@ -62,14 +104,26 @@
     "abilities": [
       {
         "name": "Munitions Reserves",
-        "description": "At the start of each round of space combat, you may spend 2 trade goods; you may re-roll any number of your dice during that combat round."
+        "description": "At the start of each round of space combat, you may spend 2 trade goods; you may re-roll any number of your dice during that combat round.",
+        "playTimings": [
+          {
+            "wording": "At the start of each round of space combat, spend 2 trade goods to re-roll dice",
+            "window": "tactical.space_combat.combat_rolls",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Armada",
-        "description": "The maximum number of non-fighter ships you can have in each system is equal to 2 more than the number of tokens in your fleet pool."
+        "description": "The maximum number of non-fighter ships you can have in each system is equal to 2 more than the number of tokens in your fleet pool.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["antimass-deflectors", "plasma-scoring"],
+    "startingTech": [
+      "antimass-deflectors",
+      "plasma-scoring"
+    ],
     "startingUnits": {
       "dreadnought": 1,
       "carrier": 1,
@@ -93,26 +147,64 @@
         "name": "Viscount Unlenn",
         "title": "Barony Agent",
         "ability": "At the start of a Space Combat round: You may exhaust this card to choose 1 ship in the active system. That ship rolls 1 additional die during this combat round.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "At the start of a space combat round",
+            "window": "tactical.space_combat.combat_rolls",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Rear Admiral Farran",
         "title": "Barony Commander",
         "ability": "After 1 of your units uses SUSTAIN DAMAGE: You may gain 1 Trade Good.",
-        "unlockCondition": "Have 5 non-fighter ships in 1 system"
+        "unlockCondition": "Have 5 non-fighter ships in 1 system",
+        "playTimings": [
+          {
+            "wording": "After 1 of your units uses SUSTAIN DAMAGE in space combat",
+            "window": "tactical.space_combat.assign_hits",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "After 1 of your units uses SUSTAIN DAMAGE in ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Darktalon Treilla",
         "title": "Dark Matter Affinity",
         "ability": "ACTION: Place this card near the game board; the number of non-fighter ships you can have in systems is not limited by laws or by the number of command tokens in your fleet pool during this game round. At the end of that game round, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Dunlain Reaper",
-      "description": "DEPLOY: At the start of a round of ground combat, you may spend 2 resources to replace 1 of your infantry in that combat with 1 mech. SUSTAIN DAMAGE."
+      "description": "DEPLOY: At the start of a round of ground combat, you may spend 2 resources to replace 1 of your infantry in that combat with 1 mech. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "DEPLOY: At the start of ground combat, spend 2 resources",
+          "window": "tactical.invasion.ground_combat",
+          "timing": "start",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flavorText": "Hold your fire until the main fleet arrives. Our armada will blot out their sun—when they die, they will die in darkness!",
     "source": "base"
@@ -123,14 +215,25 @@
     "abilities": [
       {
         "name": "Scavenge",
-        "description": "After you gain control of a planet, gain 1 trade good."
+        "description": "After you gain control of a planet, gain 1 trade good.",
+        "playTimings": [
+          {
+            "wording": "After you gain control of a planet, gain 1 trade good",
+            "window": "tactical.invasion.establish_control",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Nomadic",
-        "description": "You can score objectives even if you do not control the planets in your home system."
+        "description": "You can score objectives even if you do not control the planets in your home system.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["antimass-deflectors"],
+    "startingTech": [
+      "antimass-deflectors"
+    ],
     "startingUnits": {
       "carrier": 2,
       "cruiser": 1,
@@ -153,26 +256,58 @@
         "name": "Captain Mendosa",
         "title": "Saar Agent",
         "ability": "After a player activates a system: You may exhaust this card to increase the move value of 1 of that player's ships to match the move value of the ship on the game board that has the highest move value.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "After a player activates a system",
+            "window": "tactical.activation",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Rowl Sarrig",
         "title": "Saar Commander",
         "ability": "When you produce fighters or infantry: You may place each of those units at any of your space docks that are not blockaded.",
-        "unlockCondition": "Have 3 space docks on the game board"
+        "unlockCondition": "Have 3 space docks on the game board",
+        "playTimings": [
+          {
+            "wording": "When you produce fighters or infantry",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Gurno Aggero",
         "title": "Armageddon Relay",
         "ability": "ACTION: Choose 1 system that is adjacent to 1 of your space docks. Destroy all other player's infantry and fighters in that system. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Scavenger Zeta",
-      "description": "DEPLOY: After you gain control of a planet, you may spend 1 trade good to place 1 mech on that planet. SUSTAIN DAMAGE."
+      "description": "DEPLOY: After you gain control of a planet, you may spend 1 trade good to place 1 mech on that planet. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "DEPLOY: After you gain control of a planet, spend 1 trade good",
+          "window": "tactical.invasion.establish_control",
+          "timing": "after",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flavorText": "O, Lisis, you whose fate is forever carved into the backs of the weary. Your spectre is all we see.",
     "source": "base"
@@ -183,14 +318,25 @@
     "abilities": [
       {
         "name": "Star Forge",
-        "description": "ACTION: Spend 1 token from your strategy pool to place either 2 fighters or 1 destroyer from your reinforcements in a system that contains 1 or more of your war suns."
+        "description": "ACTION: Spend 1 token from your strategy pool to place either 2 fighters or 1 destroyer from your reinforcements in a system that contains 1 or more of your war suns.",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Gashlai Physiology",
-        "description": "Your ships can move through supernovas."
+        "description": "Your ships can move through supernovas.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["plasma-scoring"],
+    "startingTech": [
+      "plasma-scoring"
+    ],
     "startingUnits": {
       "war-sun": 1,
       "fighter": 2,
@@ -212,26 +358,58 @@
         "name": "Umbat",
         "title": "Muaat Agent",
         "ability": "ACTION: Exhaust this card to choose a player; that player may produce up to 2 units that each have a cost of 4 or less in a system that contains one of their war suns or their flagship.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Magmus",
         "title": "Muaat Commander",
         "ability": "After you spend a token from your strategy pool: You may gain 1 trade good.",
-        "unlockCondition": "Produce a War Sun"
+        "unlockCondition": "Produce a War Sun",
+        "playTimings": [
+          {
+            "wording": "After you spend a token from your strategy pool",
+            "window": "component",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Adjudicator Ba'al",
         "title": "Nova Seed",
         "ability": "After you move a war sun into a non-home system other than Mecatol Rex: You may destroy all other players' units in that system and replace that system tile with the Muaat supernova tile. If you do, purge this card and each planet card that corresponds to the replaced system tile.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "After you move a war sun into a non-home system",
+            "window": "tactical.movement",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Ember Colossus",
-      "description": "When you use your STAR FORGE faction ability in this system or an adjacent system, you may place 1 infantry from your reinforcements with this unit. SUSTAIN DAMAGE."
+      "description": "When you use your STAR FORGE faction ability in this system or an adjacent system, you may place 1 infantry from your reinforcements with this unit. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "When you use STAR FORGE in this or adjacent system",
+          "window": "component",
+          "timing": "during",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flavorText": "No longer will the Gashlai be shackled by your whims. Be extinguished, now, and know that you have lost.",
     "source": "base"
@@ -242,18 +420,24 @@
     "abilities": [
       {
         "name": "Masters of Trade",
-        "description": "You do not have to spend a command token to resolve the secondary ability of the \"Trade\" strategy card."
+        "description": "You do not have to spend a command token to resolve the secondary ability of the \"Trade\" strategy card.",
+        "playTimings": []
       },
       {
         "name": "Guild Ships",
-        "description": "You can negotiate transactions with players who are not your neighbor."
+        "description": "You can negotiate transactions with players who are not your neighbor.",
+        "playTimings": []
       },
       {
         "name": "Arbiters",
-        "description": "When you are negotiating a transaction, action cards can be exchanged as part of that transaction."
+        "description": "When you are negotiating a transaction, action cards can be exchanged as part of that transaction.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["antimass-deflectors", "sarween-tools"],
+    "startingTech": [
+      "antimass-deflectors",
+      "sarween-tools"
+    ],
     "startingUnits": {
       "carrier": 2,
       "cruiser": 1,
@@ -276,26 +460,51 @@
         "name": "Carth of Golden Sands",
         "title": "Hacan Agent",
         "ability": "During the action phase: You may exhaust this card to gain 2 commodities or replenish another player's commodities.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "During the action phase",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Gila the Silvertongue",
         "title": "Hacan Commander",
         "ability": "When you cast votes: You may spend any number of trade goods; cast 2 additional votes for each trade good spent.",
-        "unlockCondition": "Have 10 Trade Goods"
+        "unlockCondition": "Have 10 Trade Goods",
+        "playTimings": [
+          {
+            "wording": "When you cast votes during the agenda phase",
+            "window": "agenda",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Harrugh Gefhara",
         "title": "Galactic Securities Net",
         "ability": "When 1 or more of your units use PRODUCTION: You may reduce the cost of each of your units to 0 during this use of PRODUCTION. If you do, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "When 1 or more of your units use PRODUCTION",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Pride of Kenara",
-      "description": "This planet's card may be traded as part of a transaction; if you do, move all of your units from this planet to another planet you control. SUSTAIN DAMAGE."
+      "description": "This planet's card may be traded as part of a transaction; if you do, move all of your units from this planet to another planet you control. SUSTAIN DAMAGE.",
+      "playTimings": []
     },
     "flavorText": "Elder Qanoj. I have heard the Xxcha's work to restore Archon Tau has run short of resources. Perhaps the Emirates may be of some assistance?",
     "source": "base"
@@ -306,14 +515,33 @@
     "abilities": [
       {
         "name": "Orbital Drop",
-        "description": "ACTION: Spend 1 token from your strategy pool to place 2 infantry from your reinforcements on 1 planet you control."
+        "description": "ACTION: Spend 1 token from your strategy pool to place 2 infantry from your reinforcements on 1 planet you control.",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Versatile",
-        "description": "When you gain command tokens during the status phase, gain 1 additional command token."
+        "description": "When you gain command tokens during the status phase, gain 1 additional command token.",
+        "playTimings": [
+          {
+            "wording": "When you gain command tokens during the status phase",
+            "window": "status.gain_redistribute_command_tokens",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
-    "startingTech": ["neural-motivator", "antimass-deflectors"],
+    "startingTech": [
+      "neural-motivator",
+      "antimass-deflectors"
+    ],
     "startingUnits": {
       "carrier": 2,
       "destroyer": 1,
@@ -336,26 +564,58 @@
         "name": "Evelyn Delouis",
         "title": "Sol Agent",
         "ability": "At the start of a ground combat round: You may exhaust this card to choose 1 ground force in the active system; that ground force rolls 1 additional die during that combat round.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "At the start of a ground combat round",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Claire Gibson",
         "title": "Sol Commander",
         "ability": "At the start of a ground combat on a planet you control: You may place 1 infantry from your reinforcements on that planet.",
-        "unlockCondition": "Control planets that have a combined total of at least 12 resources."
+        "unlockCondition": "Control planets that have a combined total of at least 12 resources.",
+        "playTimings": [
+          {
+            "wording": "At the start of ground combat on a planet you control",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Jace X. 4th Air Legion",
         "title": "Helio Command Array",
         "ability": "ACTION: Remove each of your command tokens from the game board and return them to your reinforcements. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "ZS Thunderbolt M2",
-      "description": "DEPLOY: After you use your ORBITAL DROP faction ability, you may spend 3 resources to place 1 mech on that planet. SUSTAIN DAMAGE."
+      "description": "DEPLOY: After you use your ORBITAL DROP faction ability, you may spend 3 resources to place 1 mech on that planet. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "DEPLOY: After you use ORBITAL DROP",
+          "window": "component",
+          "timing": "after",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flavorText": "Our enemies consider us children. They think us weak. Show them. Show them what the children of Jord can do!",
     "source": "base"
@@ -366,18 +626,30 @@
     "abilities": [
       {
         "name": "Quantum Entanglement",
-        "description": "You treat all systems that contain either an alpha or beta wormhole as adjacent to each other. Game effects cannot prevent you from using this ability."
+        "description": "You treat all systems that contain either an alpha or beta wormhole as adjacent to each other. Game effects cannot prevent you from using this ability.",
+        "playTimings": []
       },
       {
         "name": "Slipstream",
-        "description": "During your tactical actions, apply +1 to the move value of each of your ships that starts its movement in your home system or in a system that contains either an alpha or beta wormhole."
+        "description": "During your tactical actions, apply +1 to the move value of each of your ships that starts its movement in your home system or in a system that contains either an alpha or beta wormhole.",
+        "playTimings": [
+          {
+            "wording": "During your tactical actions, apply +1 to move value",
+            "window": "tactical.movement",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Creuss Gate",
-        "description": "When you create the game board, place the Creuss Gate (tile 17) where your home system would normally be placed. The Creuss Gate system is not a home system. Then, place your home system (tile 51) in your play area."
+        "description": "When you create the game board, place the Creuss Gate (tile 17) where your home system would normally be placed. The Creuss Gate system is not a home system. Then, place your home system (tile 51) in your play area.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["gravity-drive"],
+    "startingTech": [
+      "gravity-drive"
+    ],
     "startingUnits": {
       "carrier": 1,
       "destroyer": 2,
@@ -400,26 +672,58 @@
         "name": "Emissary Taivra",
         "title": "Creuss Agent",
         "ability": "After a player activates a system that contains a non-delta wormhole: You may exhaust this card; if you do, that system is adjacent to all other systems that contain a wormhole during this tactical action.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "After a player activates a system with a wormhole",
+            "window": "tactical.activation",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Sai Seravus",
         "title": "Creuss Commander",
         "ability": "After your ships move: For each ship that has a capacity value and moved through 1 or more wormholes, you may place 1 fighter from your reinforcements with that ship if you have unused capacity in the active system.",
-        "unlockCondition": "Have units in 3 systems that contain alpha or beta wormholes."
+        "unlockCondition": "Have units in 3 systems that contain alpha or beta wormholes.",
+        "playTimings": [
+          {
+            "wording": "After your ships move through wormholes",
+            "window": "tactical.movement",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Riftwalker Meian",
         "title": "Singularity Reactor",
         "ability": "ACTION: Swap the positions of any 2 systems that contain wormholes or your units, other than the Creuss system and the Wormhole Nexus. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Icarus Drive",
-      "description": "After any player activates a system, you may remove this unit from the game board to place or move a Creuss wormhole token into this system. SUSTAIN DAMAGE."
+      "description": "After any player activates a system, you may remove this unit from the game board to place or move a Creuss wormhole token into this system. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "After any player activates a system, remove to place wormhole",
+          "window": "tactical.activation",
+          "timing": "after",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flavorText": "When you leave the familiar safety of your universe, you enter our domain. I suggest you do not trespass here lightly.",
     "source": "base"
@@ -430,14 +734,33 @@
     "abilities": [
       {
         "name": "Assimilate",
-        "description": "When you gain control of a planet, replace each PDS and space dock that is on that planet with a matching unit from your reinforcements."
+        "description": "When you gain control of a planet, replace each PDS and space dock that is on that planet with a matching unit from your reinforcements.",
+        "playTimings": [
+          {
+            "wording": "When you gain control of a planet",
+            "window": "tactical.invasion.establish_control",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Harrow",
-        "description": "At the end of each round of ground combat, your ships in the active system may use their Bombardment abilities against your opponent's ground forces on the planet."
+        "description": "At the end of each round of ground combat, your ships in the active system may use their Bombardment abilities against your opponent's ground forces on the planet.",
+        "playTimings": [
+          {
+            "wording": "At the end of each round of ground combat, use bombardment",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "end",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
-    "startingTech": ["neural-motivator", "plasma-scoring"],
+    "startingTech": [
+      "neural-motivator",
+      "plasma-scoring"
+    ],
     "startingUnits": {
       "dreadnought": 1,
       "carrier": 1,
@@ -461,26 +784,44 @@
         "name": "I48S",
         "title": "L1Z1X Agent",
         "ability": "After a player activates a system: You may exhaust this card to allow that player to replace 1 of their infantry in the active system with 1 mech from their reinforcements.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "After a player activates a system",
+            "window": "tactical.activation",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "2RAM",
         "title": "L1Z1X Commander",
         "ability": "Units that have PLANETARY SHIELD do not prevent you from using Bombardment.",
-        "unlockCondition": "Have 4 dreadnoughts on the Board"
+        "unlockCondition": "Have 4 dreadnoughts on the Board",
+        "playTimings": []
       },
       {
         "type": "hero",
         "name": "The Helmsman",
         "title": "Dark Space Navigation",
         "ability": "ACTION: Choose 1 system that does not contain other players' ships; you may move your flagship and any number of your dreadnoughts from other systems into the chosen system. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Annihilator",
-      "description": "While not participating in ground combat, this unit can use its BOMBARDMENT ability on planets in its system as if it were a ship. SUSTAIN DAMAGE. BOMBARDMENT 8."
+      "description": "While not participating in ground combat, this unit can use its BOMBARDMENT ability on planets in its system as if it were a ship. SUSTAIN DAMAGE. BOMBARDMENT 8.",
+      "playTimings": []
     },
     "flavorText": "For the other races, every soldier killed on the battlefield is a loss. For we L1Z1X, every soldier killed is a chance to resurrect them into a form even more powerful than before.",
     "source": "base"
@@ -491,14 +832,33 @@
     "abilities": [
       {
         "name": "Ambush",
-        "description": "At the start of a space combat, you may roll 1 die for each of up to 2 of your cruisers or destroyers in the system. For each result equal to or greater than that ship's combat value, produce 1 hit; your opponent must assign it to 1 of their ships."
+        "description": "At the start of a space combat, you may roll 1 die for each of up to 2 of your cruisers or destroyers in the system. For each result equal to or greater than that ship's combat value, produce 1 hit; your opponent must assign it to 1 of their ships.",
+        "playTimings": [
+          {
+            "wording": "At the start of space combat, roll dice for cruisers/destroyers",
+            "window": "tactical.space_combat",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Pillage",
-        "description": "After 1 of your neighbors gains trade goods or resolves a transaction, if they have 3 or more trade goods, you may take 1 of their trade goods or commodities."
+        "description": "After 1 of your neighbors gains trade goods or resolves a transaction, if they have 3 or more trade goods, you may take 1 of their trade goods or commodities.",
+        "playTimings": [
+          {
+            "wording": "After a neighbor gains trade goods or resolves a transaction",
+            "window": "component",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
-    "startingTech": ["sarween-tools", "plasma-scoring"],
+    "startingTech": [
+      "sarween-tools",
+      "plasma-scoring"
+    ],
     "startingUnits": {
       "carrier": 1,
       "cruiser": 2,
@@ -522,26 +882,51 @@
         "name": "Suffi An",
         "title": "Mentak Agent",
         "ability": "After the PILLAGE faction ability is used against another player: You may exhaust this card; if you do, you and that player each draw 1 action card.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "After PILLAGE is used against another player",
+            "window": "component",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "S'Ula Mentarion",
         "title": "Mentak Commander",
         "ability": "After you win a space combat: You may force your opponent to give you 1 promissory note from their hand.",
-        "unlockCondition": "Have 4 cruisers on the game board"
+        "unlockCondition": "Have 4 cruisers on the game board",
+        "playTimings": [
+          {
+            "wording": "After you win a space combat",
+            "window": "tactical.space_combat",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Ipswitch, Loose Cannon",
         "title": "Sleeper Cell",
         "ability": "At the start of space combat that you are participating in: You may purge this card; if you do, for each other player's ship that is destroyed during this combat, place 1 ship of that type from your reinforcements in the active system.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "At the start of space combat",
+            "window": "tactical.space_combat",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Moll Terminus",
-      "description": "Other players' ground forces on this planet cannot use SUSTAIN DAMAGE. SUSTAIN DAMAGE."
+      "description": "Other players' ground forces on this planet cannot use SUSTAIN DAMAGE. SUSTAIN DAMAGE.",
+      "playTimings": []
     },
     "flavorText": "So to deliver these guns you're saying I need to get my ship around the Isofal Nebula and through the Charon Reefs, chart a new course through the Wraith Stars, then fight a couple Winnu battlewagons? And here I thought you were giving me a challenge!",
     "source": "base"
@@ -552,14 +937,33 @@
     "abilities": [
       {
         "name": "Telepathic",
-        "description": "At the end of the strategy phase, place the Naalu \"0\" token on your strategy card; you are first in initiative order."
+        "description": "At the end of the strategy phase, place the Naalu \"0\" token on your strategy card; you are first in initiative order.",
+        "playTimings": [
+          {
+            "wording": "At the end of the strategy phase",
+            "window": "strategy",
+            "timing": "end",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Foresight",
-        "description": "After another player moves ships into a system that contains 1 or more of your ships, you may place 1 token from your strategy pool in an adjacent system that does not contain another player's ships; move your ships from the active system into that system."
+        "description": "After another player moves ships into a system that contains 1 or more of your ships, you may place 1 token from your strategy pool in an adjacent system that does not contain another player's ships; move your ships from the active system into that system.",
+        "playTimings": [
+          {
+            "wording": "After another player moves ships into a system with your ships",
+            "window": "tactical.movement",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
-    "startingTech": ["neural-motivator", "sarween-tools"],
+    "startingTech": [
+      "neural-motivator",
+      "sarween-tools"
+    ],
     "startingUnits": {
       "carrier": 1,
       "cruiser": 1,
@@ -584,26 +988,51 @@
         "name": "Z'eu",
         "title": "Naalu Agent",
         "ability": "After an agenda is revealed: You may exhaust this card to look at the top card of the agenda deck. Then, you may show that card to 1 other player.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "After an agenda is revealed",
+            "window": "agenda",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "M'aban",
         "title": "Naalu Commander",
         "ability": "You may produce 1 additional fighter for their cost; these additional units do not count against your production limit.",
-        "unlockCondition": "Have 12 fighters on the game board"
+        "unlockCondition": "Have 12 fighters on the game board",
+        "playTimings": [
+          {
+            "wording": "When you produce fighters",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "The Oracle",
         "title": "C-Radium Geometry",
         "ability": "At the end of the status phase: You may force each other player to give you 1 promissory note from their hand. If you do, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "At the end of the status phase",
+            "window": "status",
+            "timing": "end",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Iconoclast",
-      "description": "During combat against an opponent who has at least 1 relic fragment, apply +2 to the results of this unit's combat rolls. SUSTAIN DAMAGE."
+      "description": "During combat against an opponent who has at least 1 relic fragment, apply +2 to the results of this unit's combat rolls. SUSTAIN DAMAGE.",
+      "playTimings": []
     },
     "flavorText": "...and that's why the Letnev will never cooperate with the Shikrai zealots and extremists!",
     "source": "base"
@@ -614,18 +1043,45 @@
     "abilities": [
       {
         "name": "Galactic Threat",
-        "description": "You cannot vote on agendas. Once per agenda phase, after an agenda is revealed, you may predict aloud the outcome of that agenda. If your prediction is correct, gain 1 technology that is owned by a player who voted how you predicted."
+        "description": "You cannot vote on agendas. Once per agenda phase, after an agenda is revealed, you may predict aloud the outcome of that agenda. If your prediction is correct, gain 1 technology that is owned by a player who voted how you predicted.",
+        "playTimings": [
+          {
+            "wording": "After an agenda is revealed, predict outcome",
+            "window": "agenda",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Technological Singularity",
-        "description": "Once per combat, after 1 of your opponent's units is destroyed, you may gain 1 technology that is owned by that player."
+        "description": "Once per combat, after 1 of your opponent's units is destroyed, you may gain 1 technology that is owned by that player.",
+        "playTimings": [
+          {
+            "wording": "Once per combat, after opponent's unit is destroyed, gain tech",
+            "window": "tactical.space_combat.combat_rolls",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "Once per combat, after opponent's unit is destroyed, gain tech",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Propagation",
-        "description": "You cannot research technology. When you would research a technology, gain 3 command tokens instead."
+        "description": "You cannot research technology. When you would research a technology, gain 3 command tokens instead.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["dacxive-animators", "valefar-assimilator-x", "valefar-assimilator-y"],
+    "startingTech": [
+      "dacxive-animators",
+      "valefar-assimilator-x",
+      "valefar-assimilator-y"
+    ],
     "startingUnits": {
       "dreadnought": 1,
       "carrier": 1,
@@ -649,26 +1105,57 @@
         "name": "Nekro Malleon",
         "title": "Nekro Virus Agent",
         "ability": "During the action phase: You may exhaust this card to choose a player; that player may discard 1 action card or spend 1 command token from their command sheet to gain 2 trade goods.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "During the action phase",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Nekro Acidos",
         "title": "Nekro Virus Commander",
         "ability": "After you gain a technology: You may draw 1 action card.",
-        "unlockCondition": "Own 3 technologies. A \"Valefar Assimilator\" technology counts only if its X or Y token is on a technology."
+        "unlockCondition": "Own 3 technologies. A \"Valefar Assimilator\" technology counts only if its X or Y token is on a technology.",
+        "playTimings": [
+          {
+            "wording": "After you gain a technology from space combat",
+            "window": "tactical.space_combat",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "After you gain a technology from ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "UNIT.DSGN.FLAYESH",
         "title": "Polymorphic Algorithm",
         "ability": "ACTION: Choose a planet that has a technology specialty in a system that contains your units. Destroy any other player's units on that planet. Gain trade goods equal to that planet's combined resource and influence values and gain 1 technology that matches the specialty of that planet. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Mordred",
-      "description": "During combat against an opponent who has an \"X\" or \"Y\" token on 1 or more of their technologies, apply +2 to the result of each of this unit's combat rolls. SUSTAIN DAMAGE."
+      "description": "During combat against an opponent who has an \"X\" or \"Y\" token on 1 or more of their technologies, apply +2 to the result of each of this unit's combat rolls. SUSTAIN DAMAGE.",
+      "playTimings": []
     },
     "flagship": {
       "name": "The Alastor",
@@ -676,7 +1163,9 @@
       "combat": "9(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "At the start of a space combat, choose any number of your ground forces in this system to participate in that combat as if they were ships."
     },
     "flavorText": "Once Ordinian was a paradise world with windswept plains and shining white cities. Now it is a wasteland of bare rock under a gray sky, haunted by black-armored metal nightmares.",
@@ -688,7 +1177,8 @@
     "abilities": [
       {
         "name": "Unrelenting",
-        "description": "Apply +1 to the result of each of your unit's combat rolls."
+        "description": "Apply +1 to the result of each of your unit's combat rolls.",
+        "playTimings": []
       }
     ],
     "startingTech": [],
@@ -714,26 +1204,58 @@
         "name": "T'ro",
         "title": "Sardakk N'orr Agent",
         "ability": "At the end of a player's tactical action: You may exhaust this card; if you do, that player may place 2 infantry from their reinforcements on a planet they control in the active system.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "At the end of a player's tactical action",
+            "window": "tactical",
+            "timing": "end",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "G'hom Sek'kus",
         "title": "Sardakk N'orr Commander",
         "ability": "During the \"Commit Ground Forces\" step: You can commit up to 1 ground force from each planet in the active system and each planet in adjacent systems that do not contain 1 of your command tokens.",
-        "unlockCondition": "Control 5 planets in non-home systems"
+        "unlockCondition": "Control 5 planets in non-home systems",
+        "playTimings": [
+          {
+            "wording": "During the Commit Ground Forces step",
+            "window": "tactical.invasion.commit_ground_forces",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Sh'val, Harbinger",
         "title": "Tekklar Conditioning",
         "ability": "After you move ships into the active system: You may skip directly to the \"Commit Ground Forces\" step. If you do, after you commit ground forces to land on planets, purge this card and return each of your ships in the active system to your reinforcements.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "After you move ships into the active system",
+            "window": "tactical.movement",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Valkyrie Exoskeleton",
-      "description": "After this unit uses its SUSTAIN DAMAGE ability during Ground Combat, it produces 1 hit against your opponent's ground forces on this planet. SUSTAIN DAMAGE."
+      "description": "After this unit uses its SUSTAIN DAMAGE ability during Ground Combat, it produces 1 hit against your opponent's ground forces on this planet. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "After this unit uses SUSTAIN DAMAGE during ground combat",
+          "window": "tactical.invasion.ground_combat",
+          "timing": "during",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flagship": {
       "name": "C'Morran N'orr",
@@ -741,7 +1263,9 @@
       "combat": "6(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "Apply +1 to the result of each of your other ship's combat rolls in this system."
     },
     "flavorText": "Broodmates! The Tekklar legions are feared by all our foes across the galaxy.",
@@ -753,18 +1277,33 @@
     "abilities": [
       {
         "name": "Fragile",
-        "description": "Apply -1 to the result of each of your unit's combat rolls."
+        "description": "Apply -1 to the result of each of your unit's combat rolls.",
+        "playTimings": []
       },
       {
         "name": "Brilliant",
-        "description": "When you spend a command token to resolve the secondary ability of the \"Technology\" strategy card, you may resolve the primary ability instead."
+        "description": "When you spend a command token to resolve the secondary ability of the \"Technology\" strategy card, you may resolve the primary ability instead.",
+        "playTimings": [
+          {
+            "wording": "When you spend a command token for Technology secondary",
+            "window": "strategic",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Analytical",
-        "description": "When you research a technology that is not a unit upgrade technology, you may ignore 1 prerequisite."
+        "description": "When you research a technology that is not a unit upgrade technology, you may ignore 1 prerequisite.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["neural-motivator", "antimass-deflectors", "sarween-tools", "plasma-scoring"],
+    "startingTech": [
+      "neural-motivator",
+      "antimass-deflectors",
+      "sarween-tools",
+      "plasma-scoring"
+    ],
     "startingUnits": {
       "dreadnought": 1,
       "carrier": 2,
@@ -788,26 +1327,69 @@
         "name": "Doctor Sucaban",
         "title": "Jol-Nar Agent",
         "ability": "When a player spends resources to research: You may exhaust this card to allow that player to remove any number of their infantry from the game board. For each unit removed, reduce the resources spent by 1.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "When a player spends resources to research",
+            "window": "strategic",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Ta Zern",
         "title": "Jol-Nar Commander",
         "ability": "After you roll dice for a unit ability: You may reroll any of those dice.",
-        "unlockCondition": "Own 8 technologies"
+        "unlockCondition": "Own 8 technologies",
+        "playTimings": [
+          {
+            "wording": "After you roll dice for a unit ability",
+            "window": "tactical.space_combat.space_cannon_offense",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "After you roll dice for a unit ability",
+            "window": "tactical.space_combat.anti_fighter_barrage",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "After you roll dice for a unit ability",
+            "window": "tactical.invasion.bombardment",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "After you roll dice for a unit ability",
+            "window": "tactical.invasion.space_cannon_defense",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Rin, The Master's Legacy",
         "title": "Genetic Memory",
         "ability": "ACTION: For each non-unit upgrade technology you own, you may replace that technology with any technology of the same color from the deck. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Shield Paling",
-      "description": "Your infantry on this planet are not affected by your FRAGILE faction ability. SUSTAIN DAMAGE."
+      "description": "Your infantry on this planet are not affected by your FRAGILE faction ability. SUSTAIN DAMAGE.",
+      "playTimings": []
     },
     "flagship": {
       "name": "J.N.S. Hylarim",
@@ -815,7 +1397,9 @@
       "combat": "6(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "When making a combat roll for this ship, each result of 9 or 10, before applying modifiers, produces 2 additional hits."
     },
     "flavorText": "The creator of the Deepwrought Archives is famous for breaking the stranglehold the fractious universities had on information, and making knowledge available to all Hylar on Jol and Nar.",
@@ -827,11 +1411,20 @@
     "abilities": [
       {
         "name": "Blood Ties",
-        "description": "You do not have to spend influence to remove the custodians token from Mecatol Rex."
+        "description": "You do not have to spend influence to remove the custodians token from Mecatol Rex.",
+        "playTimings": []
       },
       {
         "name": "Reclamation",
-        "description": "After you resolve a tactical action during which you gained control of Mecatol Rex, you may place 1 PDS and 1 space dock from your reinforcements on Mecatol Rex."
+        "description": "After you resolve a tactical action during which you gained control of Mecatol Rex, you may place 1 PDS and 1 space dock from your reinforcements on Mecatol Rex.",
+        "playTimings": [
+          {
+            "wording": "After you resolve a tactical action gaining Mecatol Rex",
+            "window": "tactical",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "startingTech": [],
@@ -859,26 +1452,64 @@
         "name": "Berekar Berekon",
         "title": "Winnu Agent",
         "ability": "When 1 or more of a player's units use PRODUCTION: You may exhaust this card to reduce the combined cost of the produced units by 2.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "When 1 or more of a player's units use PRODUCTION",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Rickar Rickani",
         "title": "Winnu Commander",
         "ability": "During combat: Apply +2 to the result of each of your unit's combat rolls in the Mecatol Rex system, your home system, and each system that contains a legendary planet.",
-        "unlockCondition": "Control Mecatol Rex or enter into a combat in the Mecatol Rex system."
+        "unlockCondition": "Control Mecatol Rex or enter into a combat in the Mecatol Rex system.",
+        "playTimings": [
+          {
+            "wording": "During space combat in Mecatol Rex/home/legendary",
+            "window": "tactical.space_combat.combat_rolls",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "During ground combat in Mecatol Rex/home/legendary",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Mathis Mathinus",
         "title": "Imperial Seal",
         "ability": "ACTION: Perform the primary ability of any strategy card. Then, choose any number of other players. Those players may perform the secondary ability of that strategy card. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Reclaimer",
-      "description": "After you resolve a tactical action where you gained control of this planet, you may place 1 PDS or 1 Space Dock from your reinforcements on this planet. SUSTAIN DAMAGE."
+      "description": "After you resolve a tactical action where you gained control of this planet, you may place 1 PDS or 1 Space Dock from your reinforcements on this planet. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "After you resolve a tactical action gaining control of this planet",
+          "window": "tactical",
+          "timing": "after",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flagship": {
       "name": "Salai Sai Corian",
@@ -886,7 +1517,9 @@
       "combat": "7",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "When this unit makes a combat roll, it rolls a number of dice equal to the number of your opponent's non-fighter ships in this system."
     },
     "flavorText": "You cannot enter. It is forbidden! We are the children of the Lazax. Nothing of theirs is forbidden to us.",
@@ -898,14 +1531,32 @@
     "abilities": [
       {
         "name": "Peace Accords",
-        "description": "After you resolve the primary or secondary ability of the \"Diplomacy\" strategy card, you may gain control of 1 planet other than Mecatol Rex that does not contain any units and is in a system that is adjacent to a planet you control."
+        "description": "After you resolve the primary or secondary ability of the \"Diplomacy\" strategy card, you may gain control of 1 planet other than Mecatol Rex that does not contain any units and is in a system that is adjacent to a planet you control.",
+        "playTimings": [
+          {
+            "wording": "After you resolve Diplomacy primary or secondary",
+            "window": "strategic",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Quash",
-        "description": "When an agenda is revealed, you may spend 1 token from your strategy pool to discard that agenda and reveal 1 agenda from the top of the deck. Players vote on this agenda instead."
+        "description": "When an agenda is revealed, you may spend 1 token from your strategy pool to discard that agenda and reveal 1 agenda from the top of the deck. Players vote on this agenda instead.",
+        "playTimings": [
+          {
+            "wording": "When an agenda is revealed, spend 1 strategy token to discard",
+            "window": "agenda",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
-    "startingTech": ["graviton-laser-system"],
+    "startingTech": [
+      "graviton-laser-system"
+    ],
     "startingUnits": {
       "carrier": 1,
       "cruiser": 2,
@@ -929,26 +1580,64 @@
         "name": "Ggrocuto Rinn",
         "title": "Xxcha Agent",
         "ability": "ACTION: Exhaust this card to ready any planet; if that planet is in a system that is adjacent to a planet you control, you may remove 1 infantry from that planet and return it to its reinforcements.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Elder Qanoj",
         "title": "Xxcha Commander",
         "ability": "Each planet you exhaust to cast votes provides 1 additional vote. Game effects cannot prevent you from voting on an agenda.",
-        "unlockCondition": "Control planets that have a combined value of at least 12 influence."
+        "unlockCondition": "Control planets that have a combined value of at least 12 influence.",
+        "playTimings": [
+          {
+            "wording": "When you cast votes during the agenda phase",
+            "window": "agenda",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Xxekir Grom",
         "title": "Political Data Nexus",
         "ability": "ACTION: You may discard 1 law from play. Look at the top 5 cards of the agenda deck. Choose 2 to reveal, and resolve each as if you had cast 1 vote for an outcome of your choice; discard the rest. Other players cannot resolve abilities during this action. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Indomitus",
-      "description": "You may use this unit's Space Cannon ability against ships that are in adjacent systems. SUSTAIN DAMAGE. SPACE CANNON 8."
+      "description": "You may use this unit's Space Cannon ability against ships that are in adjacent systems. SUSTAIN DAMAGE. SPACE CANNON 8.",
+      "playTimings": [
+        {
+          "wording": "SPACE CANNON against ships in adjacent systems during offense",
+          "window": "tactical.space_combat.space_cannon_offense",
+          "timing": "during",
+          "mustBeActivePlayer": false
+        },
+        {
+          "wording": "SPACE CANNON against ships during defense",
+          "window": "tactical.invasion.space_cannon_defense",
+          "timing": "during",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flagship": {
       "name": "Loncara Ssodu",
@@ -956,7 +1645,10 @@
       "combat": "7(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage", "Space Cannon 5 (x3)"],
+      "abilities": [
+        "Sustain Damage",
+        "Space Cannon 5 (x3)"
+      ],
       "special": "You may use this unit's SPACE CANNON against ships that are in adjacent systems."
     },
     "flavorText": "The Xxcha have not forgotten the Twilight Wars. Though we may speak softly, you would not be wise to attempt to silence us!",
@@ -968,14 +1660,32 @@
     "abilities": [
       {
         "name": "Indoctrination",
-        "description": "At the start of a ground combat, you may spend 2 influence to replace 1 of your opponent's participating infantry with 1 infantry from your reinforcements."
+        "description": "At the start of a ground combat, you may spend 2 influence to replace 1 of your opponent's participating infantry with 1 infantry from your reinforcements.",
+        "playTimings": [
+          {
+            "wording": "At the start of ground combat, spend 2 influence to replace infantry",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Devotion",
-        "description": "After each space battle round, you may destroy 1 of your cruisers or destroyers in the active system to produce 1 hit and assign it to 1 of your opponent's ships in that system."
+        "description": "After each space battle round, you may destroy 1 of your cruisers or destroyers in the active system to produce 1 hit and assign it to 1 of your opponent's ships in that system.",
+        "playTimings": [
+          {
+            "wording": "After each space battle round, destroy your ship to produce a hit",
+            "window": "tactical.space_combat.combat_rolls",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
-    "startingTech": ["sarween-tools"],
+    "startingTech": [
+      "sarween-tools"
+    ],
     "startingUnits": {
       "carrier": 2,
       "destroyer": 1,
@@ -998,26 +1708,64 @@
         "name": "Brother Milor",
         "title": "Yin Agent",
         "ability": "After a player's destroyer or cruiser is destroyed: You may exhaust this card; if you do, that player may place up to 2 fighters from their reinforcements in that unit's system.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "After a player's destroyer or cruiser is destroyed in space combat",
+            "window": "tactical.space_combat",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "After a player's destroyer or cruiser is destroyed in ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Brother Omar",
         "title": "Yin Commander",
         "ability": "This card satisfies a green technology prerequisite. You may produce 1 additional infantry for their cost. These infantry do not count against your production limit.",
-        "unlockCondition": "Use your INDOCTRINATION faction ability."
+        "unlockCondition": "Use your INDOCTRINATION faction ability.",
+        "playTimings": [
+          {
+            "wording": "When you produce infantry",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Dannel of the Tenth",
         "title": "Spinner Overdrive",
         "ability": "ACTION: For each planet that contains any number of your infantry, either ready that planet or place an equal number of infantry from your reinforcements on that planet. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Moyin's Ashes",
-      "description": "DEPLOY: When you use your INDOCTRINATION faction ability, you may spend 1 additional influence to replace your opponent's unit with 1 mech instead of 1 infantry. SUSTAIN DAMAGE."
+      "description": "DEPLOY: When you use your INDOCTRINATION faction ability, you may spend 1 additional influence to replace your opponent's unit with 1 mech instead of 1 infantry. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "DEPLOY: When you use INDOCTRINATION, spend 1 extra influence",
+          "window": "tactical.invasion.ground_combat",
+          "timing": "start",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flagship": {
       "name": "Van Hauge",
@@ -1025,7 +1773,9 @@
       "combat": "9(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "When this ship is destroyed, destroy all ships in this system."
     },
     "flavorText": "Brother, our ships are breaking up. No! Have them launch the remaining fighters and board the enemy in the lifepods. In Darien's name, we fight to the last!",
@@ -1037,18 +1787,30 @@
     "abilities": [
       {
         "name": "Stall Tactics",
-        "description": "ACTION: Discard 1 action card from your hand."
+        "description": "ACTION: Discard 1 action card from your hand.",
+        "playTimings": [
+          {
+            "wording": "Play as an action to discard an action card",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Scheming",
-        "description": "When you draw 1 or more action cards, draw 1 additional action card. Then, choose and discard 1 action card from your hand."
+        "description": "When you draw 1 or more action cards, draw 1 additional action card. Then, choose and discard 1 action card from your hand.",
+        "playTimings": []
       },
       {
         "name": "Crafty",
-        "description": "You can have any number of action cards in your hand. Game effects cannot prevent you from using this ability."
+        "description": "You can have any number of action cards in your hand. Game effects cannot prevent you from using this ability.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["neural-motivator"],
+    "startingTech": [
+      "neural-motivator"
+    ],
     "startingUnits": {
       "carrier": 2,
       "cruiser": 1,
@@ -1072,26 +1834,51 @@
         "name": "Ssruu",
         "title": "Yssaril Agent",
         "ability": "This card has the text ability of each other player's agent, even if that agent is exhausted.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": []
       },
       {
         "type": "commander",
         "name": "So Ata",
         "title": "Yssaril Commander",
         "ability": "After another player activates a system that contains your units: You may look at that player's action cards, promissory notes, or secret objectives.",
-        "unlockCondition": "Have 7 action cards"
+        "unlockCondition": "Have 7 action cards",
+        "playTimings": [
+          {
+            "wording": "After another player activates a system with your units",
+            "window": "tactical.activation",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Kyver, Blade and Key",
         "title": "Guild of Spies",
         "ability": "ACTION: Each other player shows you 1 action card from their hand. For each player, you may either take that card or force that player to discard 3 random action cards from their hand. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Blackshade Infiltrator",
-      "description": "DEPLOY: After you use your STALL TACTICS faction ability, you may place 1 mech on a planet you control. SUSTAIN DAMAGE."
+      "description": "DEPLOY: After you use your STALL TACTICS faction ability, you may place 1 mech on a planet you control. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "DEPLOY: After you use STALL TACTICS",
+          "window": "component",
+          "timing": "after",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flagship": {
       "name": "Y'sia Y'ssrila",
@@ -1099,7 +1886,9 @@
       "combat": "5(x2)",
       "move": 2,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "This ship can move through systems that contain other player's ships."
     },
     "flavorText": "The black shadow dropped from the skylight into the bedroom. 'This is Governor Singh,' the figure said in a voice that was not its own. 'On my authority, deactivate the defense grid.'",
@@ -1111,11 +1900,27 @@
     "abilities": [
       {
         "name": "Zeal",
-        "description": "You always vote first during the agenda phase. When you cast at least 1 vote, cast 1 additional vote for each player in the game including you."
+        "description": "You always vote first during the agenda phase. When you cast at least 1 vote, cast 1 additional vote for each player in the game including you.",
+        "playTimings": [
+          {
+            "wording": "During agenda phase voting",
+            "window": "agenda",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Raid Formation",
-        "description": "When 1 or more of your units uses ANTI-FIGHTER BARRAGE, for each hit produced in excess of your opponent's fighters, choose 1 of your opponent's ships that has SUSTAIN DAMAGE to become damaged."
+        "description": "When 1 or more of your units uses ANTI-FIGHTER BARRAGE, for each hit produced in excess of your opponent's fighters, choose 1 of your opponent's ships that has SUSTAIN DAMAGE to become damaged.",
+        "playTimings": [
+          {
+            "wording": "When your units use ANTI-FIGHTER BARRAGE",
+            "window": "tactical.space_combat.anti_fighter_barrage",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "startingTech": [],
@@ -1143,26 +1948,69 @@
         "name": "Trillossa Aun Mirik",
         "title": "Argent Flight Agent",
         "ability": "When a player produces ground forces in a system: You may exhaust this card; that player may place those units on any planets they control in that system and any adjacent systems.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "When a player produces ground forces",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Trrakan Aun Zulok",
         "title": "Argent Flight Commander",
         "ability": "When 1 or more of your units make a roll for a unit ability: You may choose 1 of those units to roll 1 additional die.",
-        "unlockCondition": "Have 6 units that have ANTI-FIGHTER BARRAGE, SPACE CANNON or BOMBARDMENT on the game board."
+        "unlockCondition": "Have 6 units that have ANTI-FIGHTER BARRAGE, SPACE CANNON or BOMBARDMENT on the game board.",
+        "playTimings": [
+          {
+            "wording": "When your units roll for ANTI-FIGHTER BARRAGE",
+            "window": "tactical.space_combat.anti_fighter_barrage",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "When your units roll for SPACE CANNON OFFENSE",
+            "window": "tactical.space_combat.space_cannon_offense",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "When your units roll for BOMBARDMENT",
+            "window": "tactical.invasion.bombardment",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "When your units roll for SPACE CANNON DEFENSE",
+            "window": "tactical.invasion.space_cannon_defense",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Mirik Aun Sissiri",
         "title": "Helix Protocol",
         "ability": "ACTION: Move any number of your ships from any systems to any number of other systems that contain 1 of your command tokens and no other players' ships. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Aerie Sentinel",
-      "description": "This unit does not count against capacity if it is being transported or if it is in a space area with 1 or more of your ships that have capacity values. SUSTAIN DAMAGE."
+      "description": "This unit does not count against capacity if it is being transported or if it is in a space area with 1 or more of your ships that have capacity values. SUSTAIN DAMAGE.",
+      "playTimings": []
     },
     "flagship": {
       "name": "Quetzecoatl",
@@ -1170,7 +2018,9 @@
       "combat": "7(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "Other players cannot use space cannon against your ships in this system."
     },
     "flavorText": "You understand the power of the swift blow, Trilossa. But only when you can direct all of our flocks to dance amongst the stars in perfect harmony will you surpass me.",
@@ -1182,18 +2032,30 @@
     "abilities": [
       {
         "name": "Voidborn",
-        "description": "Nebulae do not affect your ships' movement."
+        "description": "Nebulae do not affect your ships' movement.",
+        "playTimings": []
       },
       {
         "name": "Aetherpassage",
-        "description": "After a player activates a system, you may allow that player to move their ships through systems that contain your ships."
+        "description": "After a player activates a system, you may allow that player to move their ships through systems that contain your ships.",
+        "playTimings": [
+          {
+            "wording": "After a player activates a system",
+            "window": "tactical.activation",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Dark Whispers",
-        "description": "During setup, take the additional Empyrean faction promissory note; you have 2 faction promissory notes."
+        "description": "During setup, take the additional Empyrean faction promissory note; you have 2 faction promissory notes.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["dark-energy-tap"],
+    "startingTech": [
+      "dark-energy-tap"
+    ],
     "startingUnits": {
       "carrier": 2,
       "destroyer": 1,
@@ -1225,26 +2087,64 @@
         "name": "Acamar",
         "title": "Empyrean Agent",
         "ability": "After a player moves ships into a system that does not contain any planets: You may exhaust this card; that player gains 1 command token.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "After a player moves ships into a system without planets",
+            "window": "tactical.movement",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Xuange",
         "title": "Empyrean Commander",
         "ability": "After another player moves ships into a system that contains 1 of your command tokens: You may return that token to your reinforcements.",
-        "unlockCondition": "Be neighbors with all other players."
+        "unlockCondition": "Be neighbors with all other players.",
+        "playTimings": [
+          {
+            "wording": "After another player moves ships into a system with your command token",
+            "window": "tactical.movement",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Conservator Procyon",
         "title": "Multiverse Shift",
         "ability": "ACTION: Place 1 frontier token in each system that does not contain any planets and does not already have a frontier token. Then, explore each frontier token that is in a system that contains 1 or more of your ships. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Watcher",
-      "description": "You may remove this unit from a system that contains or is adjacent to another player's units to cancel an action card played by that player. SUSTAIN DAMAGE."
+      "description": "You may remove this unit from a system that contains or is adjacent to another player's units to cancel an action card played by that player. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "Remove to cancel an action card",
+          "window": "tactical.space_combat",
+          "timing": "during",
+          "mustBeActivePlayer": false
+        },
+        {
+          "wording": "Remove to cancel an action card during ground combat",
+          "window": "tactical.invasion.ground_combat",
+          "timing": "during",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flagship": {
       "name": "Dynamo",
@@ -1252,7 +2152,9 @@
       "combat": "5(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "After any player's unit in this system or an adjacent system uses SUSTAIN DAMAGE, you may spend 2 influence to repair that unit."
     },
     "flavorText": "Procyon, the seeker, eldest of the Empyrean. They have mastered the mysteries of dark energy, and thus, they know all possible realities.",
@@ -1264,18 +2166,37 @@
     "abilities": [
       {
         "name": "Edict",
-        "description": "When you win a combat, place 1 command token from your opponent's reinforcements in your fleet pool if it does not already contain 1 of that player's tokens; other player's tokens in your fleet pool increase your fleet limit but cannot be redistributed."
+        "description": "When you win a combat, place 1 command token from your opponent's reinforcements in your fleet pool if it does not already contain 1 of that player's tokens; other player's tokens in your fleet pool increase your fleet limit but cannot be redistributed.",
+        "playTimings": [
+          {
+            "wording": "When you win space combat",
+            "window": "tactical.space_combat",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          },
+          {
+            "wording": "When you win ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Imperia",
-        "description": "While another player's command token is in your fleet pool, you can use the ability of that player's commander, if it is unlocked."
+        "description": "While another player's command token is in your fleet pool, you can use the ability of that player's commander, if it is unlocked.",
+        "playTimings": []
       },
       {
         "name": "Hubris",
-        "description": "During setup, purge your \"Alliance\" promissory note. Other players cannot give you their \"Alliance\" promissory note."
+        "description": "During setup, purge your \"Alliance\" promissory note. Other players cannot give you their \"Alliance\" promissory note.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["bio-stims", "predictive-intelligence"],
+    "startingTech": [
+      "bio-stims",
+      "predictive-intelligence"
+    ],
     "startingUnits": {
       "dreadnought": 1,
       "carrier": 1,
@@ -1299,26 +2220,58 @@
         "name": "Jae Mir Kan",
         "title": "Mahact Agent",
         "ability": "When you would spend a command token during the secondary ability of a strategic action: You may exhaust this card to remove 1 of the active player's command tokens from the board and use it instead.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "When you would spend a command token for secondary ability",
+            "window": "strategic",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Il Na Viroset",
         "title": "Mahact Commander",
         "ability": "During your tactical actions, you can activate systems that contain your command tokens. If you do, return both command tokens to your reinforcements and end your turn.",
-        "unlockCondition": "Have 2 other factions' command tokens in your fleet pool."
+        "unlockCondition": "Have 2 other factions' command tokens in your fleet pool.",
+        "playTimings": [
+          {
+            "wording": "During your tactical actions",
+            "window": "tactical.activation",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Airo Shir Aur",
         "title": "Benediction",
         "ability": "ACTION: Move all units in the space area of any system to an adjacent system that contains a different player's ships. Space Combat is resolved in that system; neither player can retreat or resolve abilities that would move their ships. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Starlancer",
-      "description": "After a player whose command token is in your fleet pool activates this system, you may spend their token from your fleet pool to end their turn; they gain that token. SUSTAIN DAMAGE."
+      "description": "After a player whose command token is in your fleet pool activates this system, you may spend their token from your fleet pool to end their turn; they gain that token. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "After a player whose command token is in your fleet pool activates this system",
+          "window": "tactical.activation",
+          "timing": "after",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flagship": {
       "name": "Arvicon Rex",
@@ -1326,7 +2279,9 @@
       "combat": "5(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "During combat against an opponent whose command token is not in your fleet pool, apply +2 to the results of this unit's combat rolls."
     },
     "flavorText": "As the army warily approached their foe, the gleaming golden figure raised their hand. Golden light flashed, and the army fell upon itself in wanton slaughter.",
@@ -1338,14 +2293,26 @@
     "abilities": [
       {
         "name": "Distant Suns",
-        "description": "When you explore a planet that contains 1 of your mechs, you may draw 1 additional card; choose 1 to resolve and discard the rest."
+        "description": "When you explore a planet that contains 1 of your mechs, you may draw 1 additional card; choose 1 to resolve and discard the rest.",
+        "playTimings": []
       },
       {
         "name": "Fabrication",
-        "description": "ACTION: Either purge 2 of your relic fragments of the same type to gain 1 relic; or purge 1 of your relic fragments to gain 1 command token."
+        "description": "ACTION: Either purge 2 of your relic fragments of the same type to gain 1 relic; or purge 1 of your relic fragments to gain 1 command token.",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
-    "startingTech": ["psychoarchaeology", "ai-development-algorithm"],
+    "startingTech": [
+      "psychoarchaeology",
+      "ai-development-algorithm"
+    ],
     "startingUnits": {
       "carrier": 2,
       "destroyer": 1,
@@ -1369,21 +2336,45 @@
         "name": "Garv and Gunn",
         "title": "Naaz-Rokha Agent",
         "ability": "At the end of a player's turn: You may exhaust this card to allow that player to explore 1 of their planets.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "At the end of a player's turn",
+            "window": "tactical",
+            "timing": "end",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Dart and Tai",
         "title": "Naaz-Rokha Commander",
         "ability": "After you gain control of a planet that was controlled by another player: You may explore that planet.",
-        "unlockCondition": "Have 3 mechs in 3 systems."
+        "unlockCondition": "Have 3 mechs in 3 systems.",
+        "playTimings": [
+          {
+            "wording": "After you gain control of a planet from another player",
+            "window": "tactical.invasion.establish_control",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Hesh and Prit",
         "title": "Perfect Synthesis",
         "ability": "ACTION: Gain 1 relic and perform the secondary ability of up to 2 readied or unchosen strategy cards; during this action, spend command tokens from your reinforcements instead of your strategy pool. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
@@ -1392,7 +2383,15 @@
       "flipped": {
         "name": "Z-Grav Eidolon",
         "description": "If this unit is in the space area of the active system, it is also a ship. At the end of a space battle in the active system, flip this card. This card begins the game with this side face down."
-      }
+      },
+      "playTimings": [
+        {
+          "wording": "At the start of space combat, flip this card",
+          "window": "tactical.space_combat",
+          "timing": "start",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flagship": {
       "name": "Visz el Vir",
@@ -1400,7 +2399,9 @@
       "combat": "9(x2)",
       "move": 1,
       "capacity": 4,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "Your mechs in this system roll 1 additional die during combat."
     },
     "flavorText": "What the two of us have created here is going to ensure the rest of the galaxy never underestimates the Naaz and Rokha again.",
@@ -1412,14 +2413,25 @@
     "abilities": [
       {
         "name": "The Company",
-        "description": "During setup, take the 2 additional Nomad faction agents and place them next to your faction sheet; you have 3 agents."
+        "description": "During setup, take the 2 additional Nomad faction agents and place them next to your faction sheet; you have 3 agents.",
+        "playTimings": []
       },
       {
         "name": "Future Sight",
-        "description": "During the Agenda phase, after an outcome that you voted for or predicted is resolved, gain 1 trade good."
+        "description": "During the Agenda phase, after an outcome that you voted for or predicted is resolved, gain 1 trade good.",
+        "playTimings": [
+          {
+            "wording": "During the Agenda phase, after a voted/predicted outcome resolves",
+            "window": "agenda",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
-    "startingTech": ["sling-relay"],
+    "startingTech": [
+      "sling-relay"
+    ],
     "startingUnits": {
       "flagship": 1,
       "carrier": 1,
@@ -1443,40 +2455,87 @@
         "name": "Artuno the Betrayer",
         "title": "Nomad Agent",
         "ability": "When you gain trade goods from the supply: You may exhaust this card to place an equal number of trade goods on this card. When this card readies, gain the trade goods on this card.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "When you gain trade goods from the supply",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "agent",
         "name": "Field Marshal Mercer",
         "title": "Nomad Agent",
         "ability": "At the end of a player's turn: You may exhaust this card to allow that player to remove up to 2 of their ground forces from the game board and place them on planets they control in the active system.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "At the end of a player's turn",
+            "window": "tactical",
+            "timing": "end",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "agent",
         "name": "The Thundarian",
         "title": "Nomad Agent",
         "ability": "After the \"Roll Dice\" step of combat: You may exhaust this card. If you do, hits are not assigned to either players' units. Return to the start of this combat round's \"Roll Dice\" step.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "After the Roll Dice step of space combat",
+            "window": "tactical.space_combat.combat_rolls",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "After the Roll Dice step of ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Navarch Feng",
         "title": "Nomad Commander",
         "ability": "You can produce your flagship without spending resources.",
-        "unlockCondition": "Have 1 scored secret objective."
+        "unlockCondition": "Have 1 scored secret objective.",
+        "playTimings": []
       },
       {
         "type": "hero",
         "name": "Ahk-Syl Siven",
         "title": "Probability Matrix",
         "ability": "ACTION: Place this card near the game board; your flagship and units it transports can move out of systems that contain your command tokens during this game round. At the end of that game round, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Quantum Manipulator",
-      "description": "While this unit is in a space area during combat, you may use its SUSTAIN DAMAGE ability to cancel a hit that is produced against your ships in this system. SUSTAIN DAMAGE."
+      "description": "While this unit is in a space area during combat, you may use its SUSTAIN DAMAGE ability to cancel a hit that is produced against your ships in this system. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "During space combat, use SUSTAIN DAMAGE to cancel a hit against ships",
+          "window": "tactical.space_combat.assign_hits",
+          "timing": "during",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flagship": {
       "name": "Memoria",
@@ -1484,7 +2543,10 @@
       "combat": "7(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage", "Anti-Fighter Barrage 8 (x3)"],
+      "abilities": [
+        "Sustain Damage",
+        "Anti-Fighter Barrage 8 (x3)"
+      ],
       "special": "You may treat this unit as if it were adjacent to systems that contain one or more of your mechs."
     },
     "flavorText": "Nothing yet. There is naught here but dust.",
@@ -1496,18 +2558,31 @@
     "abilities": [
       {
         "name": "Terragenesis",
-        "description": "After you explore a planet that does not have a sleeper token, you may place or move 1 sleeper token onto that planet."
+        "description": "After you explore a planet that does not have a sleeper token, you may place or move 1 sleeper token onto that planet.",
+        "playTimings": []
       },
       {
         "name": "Awaken",
-        "description": "After you activate a system that contains 1 or more of your sleeper tokens, you may replace each of those tokens with 1 PDS from your reinforcements."
+        "description": "After you activate a system that contains 1 or more of your sleeper tokens, you may replace each of those tokens with 1 PDS from your reinforcements.",
+        "playTimings": [
+          {
+            "wording": "After you activate a system with sleeper tokens",
+            "window": "tactical.activation",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Coalescence",
-        "description": "If your flagship or your AWAKEN faction ability places your units into the same space area or onto the same planet as another player's units, your units must participate in combat during \"Space Combat\" or \"Ground Combat\" steps."
+        "description": "If your flagship or your AWAKEN faction ability places your units into the same space area or onto the same planet as another player's units, your units must participate in combat during \"Space Combat\" or \"Ground Combat\" steps.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["antimass-deflectors", "scanlink-drone-network"],
+    "startingTech": [
+      "antimass-deflectors",
+      "scanlink-drone-network"
+    ],
     "startingUnits": {
       "dreadnought": 1,
       "cruiser": 2,
@@ -1530,26 +2605,70 @@
         "name": "Tellurian",
         "title": "Titans Agent",
         "ability": "When a hit is produced against a unit: You may exhaust this card to cancel that hit.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "When a hit is produced against a unit in space combat",
+            "window": "tactical.space_combat.assign_hits",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "When a hit is produced against a unit in ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "When a hit is produced by bombardment",
+            "window": "tactical.invasion.bombardment",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Tungstantus",
         "title": "Titans Commander",
         "ability": "When 1 or more of your units use PRODUCTION: You may gain 1 trade good.",
-        "unlockCondition": "Have 5 structures on the game board."
+        "unlockCondition": "Have 5 structures on the game board.",
+        "playTimings": [
+          {
+            "wording": "When 1 or more of your units use PRODUCTION",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Ul The Progenitor",
         "title": "Geoform",
         "ability": "ACTION: Ready Elysium and attach this card to it. Its resource and influence values are each increased by 3, and it gains the SPACE CANNON 5 (x3) ability as if it were a unit.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Hecatoncheires",
-      "description": "DEPLOY: When you would place a PDS on a planet, you may place 1 mech and 1 infantry on that planet instead. SUSTAIN DAMAGE."
+      "description": "DEPLOY: When you would place a PDS on a planet, you may place 1 mech and 1 infantry on that planet instead. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "DEPLOY: When you would place a PDS on a planet",
+          "window": "tactical.activation",
+          "timing": "during",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flagship": {
       "name": "Ouranos",
@@ -1557,7 +2676,9 @@
       "combat": "7(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "DEPLOY: After you activate a system that contains 1 or more of your PDS, you may replace 1 of those PDS with this unit."
     },
     "flavorText": "Even now, we search the galaxy to awaken our slumbering kin. But there is one other greater than any of us, and it is time they slept no longer.",
@@ -1569,18 +2690,43 @@
     "abilities": [
       {
         "name": "Devour",
-        "description": "Capture your opponent's non-structure units that are destroyed during combat."
+        "description": "Capture your opponent's non-structure units that are destroyed during combat.",
+        "playTimings": [
+          {
+            "wording": "Capture opponent's units destroyed during space combat",
+            "window": "tactical.space_combat",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "Capture opponent's units destroyed during ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Amalgamation",
-        "description": "When you produce a unit, you may return 1 captured unit of that type to produce that unit without spending resources."
+        "description": "When you produce a unit, you may return 1 captured unit of that type to produce that unit without spending resources.",
+        "playTimings": [
+          {
+            "wording": "When you produce a unit",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Riftmeld",
-        "description": "When you research a unit upgrade technology, you may return 1 captured unit of that type to ignore all of the technology's prerequisites."
+        "description": "When you research a unit upgrade technology, you may return 1 captured unit of that type to ignore all of the technology's prerequisites.",
+        "playTimings": []
       }
     ],
-    "startingTech": ["self-assembly-routines"],
+    "startingTech": [
+      "self-assembly-routines"
+    ],
     "startingUnits": {
       "dreadnought": 1,
       "carrier": 1,
@@ -1604,26 +2750,58 @@
         "name": "The Stillness of Stars",
         "title": "Vuil'Raith Agent",
         "ability": "After another player replenishes commodities: You may exhaust this card to convert their commodities to trade goods and capture 1 unit from their reinforcements that has a cost equal to or lower than their commodity value.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "After another player replenishes commodities",
+            "window": "component",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "That Which Molds Flesh",
         "title": "Vuil'Raith Commander",
         "ability": "When you produce fighter or infantry units: Up to 2 of those units do not count against your PRODUCTION limit.",
-        "unlockCondition": "Have units in 3 Gravity Rifts."
+        "unlockCondition": "Have units in 3 Gravity Rifts.",
+        "playTimings": [
+          {
+            "wording": "When you produce fighter or infantry units",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "It Feeds on Carrion",
         "title": "Dimensional Anchor",
         "ability": "ACTION: Each other player rolls a die for each of their non-fighter ships that are in or adjacent to a system that contains a dimensional tear; on a 1-3, capture that unit. If this causes a player's ground forces or fighters to be removed, also capture those units. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Reanimator",
-      "description": "When your infantry on this planet are destroyed, place them on your faction sheet; those units are captured. SUSTAIN DAMAGE."
+      "description": "When your infantry on this planet are destroyed, place them on your faction sheet; those units are captured. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "When your infantry on this planet are destroyed",
+          "window": "tactical.invasion.ground_combat",
+          "timing": "during",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flagship": {
       "name": "The Terror Between",
@@ -1631,7 +2809,10 @@
       "combat": "5(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage", "Bombardment 5"],
+      "abilities": [
+        "Sustain Damage",
+        "Bombardment 5"
+      ],
       "special": "Capture all other non-structure units that are destroyed in this system, including your own."
     },
     "flavorText": "The Vuil'raith had glutted themselves on a score of unfortunate worlds. Now it would return the consumed to an unprepared and unsuspecting galaxy.",
@@ -1643,15 +2824,32 @@
     "abilities": [
       {
         "name": "The Tribunii",
-        "description": "During setup, choose an unplayed faction from among the Mentak, the Xxcha and The Argent Flight; take that faction's home system, command tokens and control markers. Additionally, take the Keleres Hero that corresponds to that faction."
+        "description": "During setup, choose an unplayed faction from among the Mentak, the Xxcha and The Argent Flight; take that faction's home system, command tokens and control markers. Additionally, take the Keleres Hero that corresponds to that faction.",
+        "playTimings": []
       },
       {
         "name": "Council Patronage",
-        "description": "Replenish your commodities at the start of the strategy phase, then gain 1 trade good."
+        "description": "Replenish your commodities at the start of the strategy phase, then gain 1 trade good.",
+        "playTimings": [
+          {
+            "wording": "At the start of the strategy phase",
+            "window": "strategy",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Law's Order",
-        "description": "You may spend 1 influence at the start of your turn to treat all laws as blank until the end of your turn."
+        "description": "You may spend 1 influence at the start of your turn to treat all laws as blank until the end of your turn.",
+        "playTimings": [
+          {
+            "wording": "At the start of your turn, spend 1 influence",
+            "window": "component",
+            "timing": "start",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "startingTech": [],
@@ -1678,14 +2876,30 @@
         "name": "Xander Alexin Victori III",
         "title": "Keleres Agent",
         "ability": "At any time: You may exhaust this card to allow any player to spend commodities as if they were trade goods.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "At any time during the action phase",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Suffi An",
         "title": "Keleres Commander",
         "ability": "After you perform a component action: You may perform an additional action.",
-        "unlockCondition": "Spend 1 trade good after you play an action card that has a component action."
+        "unlockCondition": "Spend 1 trade good after you play an action card that has a component action.",
+        "playTimings": [
+          {
+            "wording": "After you perform a component action",
+            "window": "component",
+            "timing": "after",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
@@ -1693,7 +2907,15 @@
         "title": "Overwing Zeta",
         "ability": "At the start of a round of space combat in a system that contains a planet you control: Place your flagship and up to a total of 2 cruisers and/or destroyers from your reinforcements in the active system. Then, purge this card.",
         "unlockCondition": "Have 3 Scored Objectives",
-        "tribunii": "argent-flight"
+        "tribunii": "argent-flight",
+        "playTimings": [
+          {
+            "wording": "At the start of a round of space combat",
+            "window": "tactical.space_combat.combat_rolls",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
@@ -1701,7 +2923,15 @@
         "title": "Operation Archon",
         "ability": "After an agenda is revealed: You may cast up to 6 additional votes on this agenda. Predict aloud an outcome for this agenda. For each player that votes for another outcome, gain 1 trade good and 1 command token. Then, purge this card.",
         "unlockCondition": "Have 3 Scored Objectives",
-        "tribunii": "xxcha-kingdom"
+        "tribunii": "xxcha-kingdom",
+        "playTimings": [
+          {
+            "wording": "After an agenda is revealed",
+            "window": "agenda",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
@@ -1709,12 +2939,21 @@
         "title": "Erwan's Covenant",
         "ability": "ACTION: Reveal cards from the action card deck until you reveal 3 action cards that have component actions. Draw those cards and shuffle the rest back into the action card deck. Then, purge this card.",
         "unlockCondition": "Have 3 Scored Objectives",
-        "tribunii": "mentak-coalition"
+        "tribunii": "mentak-coalition",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Omniopiares",
-      "description": "Other players must spend 1 influence to commit ground forces to the planet that contains this unit. SUSTAIN DAMAGE."
+      "description": "Other players must spend 1 influence to commit ground forces to the planet that contains this unit. SUSTAIN DAMAGE.",
+      "playTimings": []
     },
     "flagship": {
       "name": "Artemiris",
@@ -1722,7 +2961,9 @@
       "combat": "7(x2)",
       "move": 1,
       "capacity": 6,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "Other players must spend 2 influence to activate the system that contains this ship."
     },
     "flavorText": "Pax Magnifica, bellum gloriosum.",
@@ -1734,15 +2975,25 @@
     "abilities": [
       {
         "name": "Sundered",
-        "description": "You cannot use wormholes other than epsilon wormholes. Other players' units that move or are placed into your home system are destroyed."
+        "description": "You cannot use wormholes other than epsilon wormholes. Other players' units that move or are placed into your home system are destroyed.",
+        "playTimings": []
       },
       {
         "name": "Incursion",
-        "description": "When you activate a system that contains a breach, you may flip that breach; systems that contain active breaches are adjacent. At the end of the status phase, any player with ships in a system that contain an active breach may remove that breach."
+        "description": "When you activate a system that contains a breach, you may flip that breach; systems that contain active breaches are adjacent. At the end of the status phase, any player with ships in a system that contain an active breach may remove that breach.",
+        "playTimings": [
+          {
+            "wording": "When you activate a system with a breach",
+            "window": "tactical.activation",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "The Sorrow",
-        "description": "When you create the game board, place the Sorrow (tile 94) where your home system would normally be placed, then place an inactive breach there. The Sorrow is not a home system. Then, place your home system (tile 118) in your play area."
+        "description": "When you create the game board, place the Sorrow (tile 94) where your home system would normally be placed, then place an inactive breach there. The Sorrow is not a home system. Then, place your home system (tile 118) in your play area.",
+        "playTimings": []
       }
     ],
     "startingTech": [],
@@ -1770,26 +3021,70 @@
         "name": "Ahk Ravin",
         "title": "Crimson Rebellion Agent",
         "ability": "ACTION: Exhaust this card to choose 1 player. That player may swap the position of 2 of their ships in any systems; they may transport units when they swap.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Ahk Siever",
         "title": "Crimson Rebellion Commander",
         "ability": "At the end of a combat between any players: Gain 1 commodity or convert 1 of your commodities to a trade good.",
-        "unlockCondition": "Place a breach token in a system that contains another player's unit."
+        "unlockCondition": "Place a breach token in a system that contains another player's unit.",
+        "playTimings": [
+          {
+            "wording": "At the end of space combat between any players",
+            "window": "tactical.space_combat",
+            "timing": "end",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "At the end of ground combat between any players",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "end",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Homesick Phantom",
         "title": "Fragment Reality",
         "ability": "When you produce ships: You may place any of those ships on this card. At the start of a space combat, you may purge this card to place all ships from this card into the active system.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "When you produce ships",
+            "window": "tactical.production",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          },
+          {
+            "wording": "At the start of space combat, place ships from this card",
+            "window": "tactical.space_combat",
+            "timing": "start",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Revenant",
-      "description": "DEPLOY: During the \"Commit Ground Forces\" step of your tactical action in a system that contains an active breach, you may commit 1 mech, even if you have no units in the system. SUSTAIN DAMAGE."
+      "description": "DEPLOY: During the \"Commit Ground Forces\" step of your tactical action in a system that contains an active breach, you may commit 1 mech, even if you have no units in the system. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "DEPLOY: During Commit Ground Forces step with active breach",
+          "window": "tactical.invasion.commit_ground_forces",
+          "timing": "during",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flagship": {
       "name": "Quietus",
@@ -1797,7 +3092,9 @@
       "combat": "5(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "While this unit is in a system that contains an active breach, other players' units in systems with active breaches lose all their unit abilities."
     },
     "flavorText": "We're picking up heat signatures from over thirty C- and B-class vessels! I think they are Creuss. We—",
@@ -1809,11 +3106,20 @@
     "abilities": [
       {
         "name": "Research Team",
-        "description": "When ground forces are committed, if your units on the planet are not already coexisting, you may choose for your units to coexist."
+        "description": "When ground forces are committed, if your units on the planet are not already coexisting, you may choose for your units to coexist.",
+        "playTimings": [
+          {
+            "wording": "When ground forces are committed",
+            "window": "tactical.invasion.commit_ground_forces",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Oceanbound",
-        "description": "When your units begin coexisting on a planet, gain an ocean card and ready it. Any time you have more ocean cards than there are planets that have your coexisting units, discard ocean cards until you do not."
+        "description": "When your units begin coexisting on a planet, gain an ocean card and ready it. Any time you have more ocean cards than there are planets that have your coexisting units, discard ocean cards until you do not.",
+        "playTimings": []
       }
     ],
     "startingTech": [],
@@ -1840,26 +3146,58 @@
         "name": "Doctor Carrina",
         "title": "Deepwrought Agent",
         "ability": "When another player researches a technology: You may exhaust this card to allow that player to ignore 1 prerequisite; if they do, you may place 1 infantry from your reinforcements into coexistence on a non-home planet they control.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "When another player researches a technology",
+            "window": "strategic",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Aello",
         "title": "Deepwrought Commander",
         "ability": "When another player spends resources to research a technology: That player may reduce the cost by 1, if they do, gain 1 commodity or convert 1 of your commodities to a trade good.",
-        "unlockCondition": "Have an ocean card in play."
+        "unlockCondition": "Have an ocean card in play.",
+        "playTimings": [
+          {
+            "wording": "When another player spends resources to research",
+            "window": "strategic",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Ta Zern",
         "title": "Wave Function Collapse",
         "ability": "ACTION: Purge this card and a non-unit upgrade technology you own or from your deck; then, purge all cards with the same name owned by other players and in other players' decks. Then, each player that purged a technology they owned researches another technology.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Eanautic",
-      "description": "When another player activates this system, if this unit is coexisting, you may move it and any of your infantry on its planet to a planet you control in your home system. SUSTAIN DAMAGE. PRODUCTION 1."
+      "description": "When another player activates this system, if this unit is coexisting, you may move it and any of your infantry on its planet to a planet you control in your home system. SUSTAIN DAMAGE. PRODUCTION 1.",
+      "playTimings": [
+        {
+          "wording": "When another player activates this system while coexisting",
+          "window": "tactical.activation",
+          "timing": "during",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flagship": {
       "name": "D.W.S. Luminous",
@@ -1867,7 +3205,9 @@
       "combat": "7(x2)",
       "move": 1,
       "capacity": 6,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "This ship can move through systems that contain your units, even if other players' units are present; if it would, apply +1 to its move value for each of those systems."
     },
     "flavorText": "Ikatena was not Ta Zern's home. It was not the home of any Hylar, for that matter. But it represented a shift. A change for his people. A necessary one, if they were to survive this new age.",
@@ -1879,11 +3219,20 @@
     "abilities": [
       {
         "name": "Plots Within Plots",
-        "description": "You can score secret objectives already scored by other players, if you fulfill their requirements; This does not count against your secret objective limit or the number you can score in a round. When you score another player's secret objective do not score a victory point. Instead, place a face down plot card into your play area with that player's control token on it."
+        "description": "You can score secret objectives already scored by other players, if you fulfill their requirements; This does not count against your secret objective limit or the number you can score in a round. When you score another player's secret objective do not score a victory point. Instead, place a face down plot card into your play area with that player's control token on it.",
+        "playTimings": []
       },
       {
         "name": "Puppets of the Blade",
-        "description": "If you have at least one plot card in your play area, gain the following ability: ACTION: Purge the Firmament's faction sheet, leaders, planet card, and promissory note, then gain all of the faction components for The Obsidian."
+        "description": "If you have at least one plot card in your play area, gain the following ability: ACTION: Purge the Firmament's faction sheet, leaders, planet card, and promissory note, then gain all of the faction components for The Obsidian.",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "startingTech": [],
@@ -1911,26 +3260,51 @@
         "name": "Myru Vos",
         "title": "Firmament Agent",
         "ability": "When a player moves ships: You may exhaust this card; if you do, SPACE CANNON cannot be used against those ships. If they are not transporting units, they can also move through other players' ships.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "When a player moves ships",
+            "window": "tactical.movement",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Captain Aroz",
         "title": "Firmament Commander",
         "ability": "You may treat planets in systems that contain your ships as if you controlled them for the purpose of scoring secret objectives.",
-        "unlockCondition": "Have one plot card in play."
+        "unlockCondition": "Have one plot card in play.",
+        "playTimings": []
       },
       {
         "type": "hero",
         "name": "Sharsiss",
         "title": "The Blade Beckons",
         "ability": "ACTION: Place 1 of your plot cards in play with any other player's control token on it. Then, you may place any player's control token on 1 of your in-play plot cards; one plot cannot have two of the same player's tokens. Then, purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Viper EX-23",
-      "description": "When ground forces are committed to this planet, you may choose for your units to coexist, if they were not already. Flip this card if your faction becomes the Obsidian. SUSTAIN DAMAGE."
+      "description": "When ground forces are committed to this planet, you may choose for your units to coexist, if they were not already. Flip this card if your faction becomes the Obsidian. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "When ground forces are committed to this planet",
+          "window": "tactical.invasion.commit_ground_forces",
+          "timing": "during",
+          "mustBeActivePlayer": false
+        }
+      ]
     },
     "flagship": {
       "name": "Heaven's Eye",
@@ -1938,22 +3312,27 @@
       "combat": "5(x2)",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "If the Active System contains units that belong to a player who has a Control Token on one of your Plots, apply +1 to this ship's move value and repair it at the end of every Combat Round."
     },
     "obsidian": {
       "abilities": [
         {
           "name": "Nocturne",
-          "description": "This faction cannot be chosen during setup."
+          "description": "This faction cannot be chosen during setup.",
+          "playTimings": []
         },
         {
           "name": "The Blade's Orchestra",
-          "description": "When this faction comes into play, flip your home system, double sided faction components and all of your in-play plot cards. Then, ready Cronos Hollow and Tallin Hollow if you control them."
+          "description": "When this faction comes into play, flip your home system, double sided faction components and all of your in-play plot cards. Then, ready Cronos Hollow and Tallin Hollow if you control them.",
+          "playTimings": []
         },
         {
           "name": "Marionettes",
-          "description": "The player or players whose control tokens are on each plot card are the puppeted players for that plot."
+          "description": "The player or players whose control tokens are on each plot card are the puppeted players for that plot.",
+          "playTimings": []
         }
       ],
       "promissoryNote": {
@@ -1969,26 +3348,50 @@
           "name": "Vos Hollow",
           "title": "Obsidian Agent",
           "ability": "When a player's ship is destroyed during any combat: You may exhaust this card; If you do, that player's opponent must destroy one of their ships of the same type in the active system.",
-          "unlockCondition": "At Game Start"
+          "unlockCondition": "At Game Start",
+          "playTimings": [
+            {
+              "wording": "When a player's ship is destroyed during space combat",
+              "window": "tactical.space_combat",
+              "timing": "during",
+              "mustBeActivePlayer": false
+            },
+            {
+              "wording": "When a player's ship is destroyed during ground combat",
+              "window": "tactical.invasion.ground_combat",
+              "timing": "during",
+              "mustBeActivePlayer": false
+            }
+          ]
         },
         {
           "type": "commander",
           "name": "Aroz Hollow",
           "title": "Obsidian Commander",
           "ability": "Apply +1 to the result of each of your units' combat rolls in The Fracture.",
-          "unlockCondition": "Have units in The Fracture."
+          "unlockCondition": "Have units in The Fracture.",
+          "playTimings": []
         },
         {
           "type": "hero",
           "name": "Sharsiss Hollow",
           "title": "The Blade Revealed",
           "ability": "ACTION: Ready all of your planets. Then, purge this card.",
-          "unlockCondition": "Have 3 Scored Objectives"
+          "unlockCondition": "Have 3 Scored Objectives",
+          "playTimings": [
+            {
+              "wording": "Play as an action",
+              "window": "component",
+              "timing": "during",
+              "mustBeActivePlayer": true
+            }
+          ]
         }
       ],
       "mech": {
         "name": "Viper Hollow",
-        "description": "If this unit was coexisting when this card flipped to this side, gain control of its planet; the other player's units are now coexisting. SUSTAIN DAMAGE."
+        "description": "If this unit was coexisting when this card flipped to this side, gain control of its planet; the other player's units are now coexisting. SUSTAIN DAMAGE.",
+        "playTimings": []
       },
       "flagship": {
         "name": "Heaven's Hollow",
@@ -1996,11 +3399,21 @@
         "combat": "5(x3)",
         "move": 1,
         "capacity": 3,
-        "abilities": ["Sustain Damage"]
+        "abilities": [
+          "Sustain Damage"
+        ]
       },
       "planets": {
-        "cronosHollow": { "name": "Cronos Hollow", "resources": 3, "influence": 0 },
-        "tallinHollow": { "name": "Tallin Hollow", "resources": 3, "influence": 0 }
+        "cronosHollow": {
+          "name": "Cronos Hollow",
+          "resources": 3,
+          "influence": 0
+        },
+        "tallinHollow": {
+          "name": "Tallin Hollow",
+          "resources": 3,
+          "influence": 0
+        }
       }
     },
     "flavorText": "Sharsiss turned the point toward himself and plunged the splinted Obsidian into his own chest. It glittered. Sharsiss smiled.",
@@ -2012,15 +3425,38 @@
     "abilities": [
       {
         "name": "Liberate",
-        "description": "When you gain control of a planet, ready that planet if it contains a number of your infantry equal to or greater than that planet's resource value; otherwise, place 1 infantry on that planet."
+        "description": "When you gain control of a planet, ready that planet if it contains a number of your infantry equal to or greater than that planet's resource value; otherwise, place 1 infantry on that planet.",
+        "playTimings": [
+          {
+            "wording": "When you gain control of a planet",
+            "window": "tactical.invasion.establish_control",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "name": "Galvanize",
-        "description": "When a game effect instructs a player to galvanize a unit, they place a galvanize token beneath it, if it does not have one. Galvanized units roll 1 additional die for combat rolls and unit abilities."
+        "description": "When a game effect instructs a player to galvanize a unit, they place a galvanize token beneath it, if it does not have one. Galvanized units roll 1 additional die for combat rolls and unit abilities.",
+        "playTimings": []
       },
       {
         "name": "Phoenix Standard",
-        "description": "At the end of combat, you may galvanize 1 of your units that participated."
+        "description": "At the end of combat, you may galvanize 1 of your units that participated.",
+        "playTimings": [
+          {
+            "wording": "At the end of space combat",
+            "window": "tactical.space_combat",
+            "timing": "end",
+            "mustBeActivePlayer": true
+          },
+          {
+            "wording": "At the end of ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "end",
+            "mustBeActivePlayer": true
+          }
+        ]
       }
     ],
     "startingTech": [],
@@ -2048,26 +3484,69 @@
         "name": "Dame Briar",
         "title": "Last Bastion Agent",
         "ability": "When a player's unit is destroyed: You may exhaust this card to galvanize another of that player's units in the destroyed unit's system.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "When a player's unit is destroyed in space combat",
+            "window": "tactical.space_combat",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "When a player's unit is destroyed in ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Nip and Tuck",
         "title": "Last Bastion Commander",
         "ability": "Your action cards cannot be canceled by \"Sabotage\" action cards. The Nekro Virus cannot place assimilator tokens on your components.",
-        "unlockCondition": "There are 3 galvanized units on the game board."
+        "unlockCondition": "There are 3 galvanized units on the game board.",
+        "playTimings": []
       },
       {
         "type": "hero",
         "name": "Lyra Keen",
         "title": "Entity 4X41A \"Apollo\"",
         "ability": "When one of your galvanized units is destroyed: You may purge this card to roll 1 die for each unit in its system that belongs to another player; if the result is equal to or greater than the galvanized unit's combat value, destroy that unit.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "When one of your galvanized units is destroyed in space combat",
+            "window": "tactical.space_combat",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          },
+          {
+            "wording": "When one of your galvanized units is destroyed in ground combat",
+            "window": "tactical.invasion.ground_combat",
+            "timing": "during",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
     "mech": {
       "name": "A3 Valiance",
-      "description": "When this unit is destroyed, if it was galvanized, galvanize up to 3 of your infantry in its system. SUSTAIN DAMAGE."
+      "description": "When this unit is destroyed, if it was galvanized, galvanize up to 3 of your infantry in its system. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "When this unit is destroyed in space combat",
+          "window": "tactical.space_combat",
+          "timing": "during",
+          "mustBeActivePlayer": true
+        },
+        {
+          "wording": "When this unit is destroyed in ground combat",
+          "window": "tactical.invasion.ground_combat",
+          "timing": "during",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flagship": {
       "name": "The Egeiro",
@@ -2075,7 +3554,10 @@
       "combat": "9",
       "move": 1,
       "capacity": 3,
-      "abilities": ["Sustain Damage", "Production 1"],
+      "abilities": [
+        "Sustain Damage",
+        "Production 1"
+      ],
       "special": "Apply +1 to the results of each of this unit's combat rolls for each non-home system that contains a planet you control."
     },
     "flavorText": "Icon floated above Lyra's right shoulder, quiet, as if lost in thought. 'I can do it. But you may die during the process.' Lyra nodded. 'It will be worth the risk.'",
@@ -2087,11 +3569,20 @@
     "abilities": [
       {
         "name": "Survival Instinct",
-        "description": "After a player activates a system that contains your ships, you may move up to 2 of your ships into the active system from adjacent systems that do not contain your command tokens."
+        "description": "After a player activates a system that contains your ships, you may move up to 2 of your ships into the active system from adjacent systems that do not contain your command tokens.",
+        "playTimings": [
+          {
+            "wording": "After a player activates a system with your ships",
+            "window": "tactical.activation",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       },
       {
         "name": "Miniaturization",
-        "description": "Your structures can be transported by any ships; this does not require or count against capacity. While your structures are in the space area, they cannot use their unit abilities. At the end of your tactical action, you may place your structures that are in space areas onto planets you control in their respective systems."
+        "description": "Your structures can be transported by any ships; this does not require or count against capacity. While your structures are in the space area, they cannot use their unit abilities. At the end of your tactical action, you may place your structures that are in space areas onto planets you control in their respective systems.",
+        "playTimings": []
       }
     ],
     "startingTech": [],
@@ -2120,26 +3611,58 @@
         "name": "Kan Kip Rel",
         "title": "Ral Nel Agent",
         "ability": "ACTION: Exhaust this card to draw 2 action cards; give 1 of those cards to another player.",
-        "unlockCondition": "At Game Start"
+        "unlockCondition": "At Game Start",
+        "playTimings": [
+          {
+            "wording": "Play as an action",
+            "window": "component",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "commander",
         "name": "Watchful Ojz",
         "title": "Ral Nel Commander",
         "ability": "When you declare a retreat: Immediately retreat up to 2 of your ships from the active system to an adjacent system that does not contain another player's ships. Place a command token from your reinforcements into that system.",
-        "unlockCondition": "Be the last person to pass during the Action Phase."
+        "unlockCondition": "Be the last person to pass during the Action Phase.",
+        "playTimings": [
+          {
+            "wording": "When you declare a retreat",
+            "window": "tactical.space_combat.announce_retreat",
+            "timing": "during",
+            "mustBeActivePlayer": true
+          }
+        ]
       },
       {
         "type": "hero",
         "name": "Director Nel",
         "title": "Signal Intrusion",
         "ability": "After the last player passes: You may choose to no longer be passed; if you do, gain 2 command tokens, draw 1 action card, and purge this card.",
-        "unlockCondition": "Have 3 Scored Objectives"
+        "unlockCondition": "Have 3 Scored Objectives",
+        "playTimings": [
+          {
+            "wording": "After the last player passes",
+            "window": "component",
+            "timing": "after",
+            "mustBeActivePlayer": false
+          }
+        ]
       }
     ],
     "mech": {
       "name": "Alarum",
-      "description": "At the end of a round of combat on this planet, you may move up to 2 of your ground forces to this planet from planets in adjacent systems. SUSTAIN DAMAGE."
+      "description": "At the end of a round of combat on this planet, you may move up to 2 of your ground forces to this planet from planets in adjacent systems. SUSTAIN DAMAGE.",
+      "playTimings": [
+        {
+          "wording": "At the end of a round of ground combat",
+          "window": "tactical.invasion.ground_combat",
+          "timing": "end",
+          "mustBeActivePlayer": true
+        }
+      ]
     },
     "flagship": {
       "name": "Last Dispatch",
@@ -2147,7 +3670,9 @@
       "combat": "8(x2)",
       "move": 2,
       "capacity": 4,
-      "abilities": ["Sustain Damage"],
+      "abilities": [
+        "Sustain Damage"
+      ],
       "special": "When this unit retreats, you may destroy 1 ship in the active system that does not have SUSTAIN DAMAGE."
     },
     "flavorText": "He was the master, the king. There were no limits to Nel's ambition. No rules to be broken, no obstacles to be avoided. Only choice. A matrix of pure, unfettered futures.",
