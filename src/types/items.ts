@@ -1,4 +1,3 @@
-import type { Expansion } from './enums'
 import type { PlayTiming } from './play-timing'
 
 export interface Technology {

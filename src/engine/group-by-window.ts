@@ -65,7 +65,7 @@ export function groupByWindow(items: DisplayableItem[]): WindowGroup[] {
   // Sort groups by WINDOW_DISPLAY_ORDER
   const orderIndex = new Map<string, number>()
   for (let i = 0; i < WINDOW_DISPLAY_ORDER.length; i++) {
-    orderIndex.set(WINDOW_DISPLAY_ORDER[i], i)
+    orderIndex.set(WINDOW_DISPLAY_ORDER[i]!, i)
   }
 
   const sortedWindows = [...windowItems.keys()].sort((a, b) => {

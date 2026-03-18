@@ -25,12 +25,12 @@ describe('groupByWindow', () => {
     const groups = groupByWindow(items)
 
     expect(groups).toHaveLength(3)
-    expect(groups[0].window).toBe('tactical.space_combat.anti_fighter_barrage')
-    expect(groups[0].items.map(i => i.id)).toEqual(['afb-tech'])
-    expect(groups[1].window).toBe('tactical.space_combat.announce_retreat')
-    expect(groups[1].items.map(i => i.id)).toEqual(['retreat-card'])
-    expect(groups[2].window).toBe('tactical.space_combat.combat_rolls')
-    expect(groups[2].items.map(i => i.id)).toEqual(['plasma'])
+    expect(groups[0]!.window).toBe('tactical.space_combat.anti_fighter_barrage')
+    expect(groups[0]!.items.map(i => i.id)).toEqual(['afb-tech'])
+    expect(groups[1]!.window).toBe('tactical.space_combat.announce_retreat')
+    expect(groups[1]!.items.map(i => i.id)).toEqual(['retreat-card'])
+    expect(groups[2]!.window).toBe('tactical.space_combat.combat_rolls')
+    expect(groups[2]!.items.map(i => i.id)).toEqual(['plasma'])
   })
 
   it('omits empty groups — only returns windows that have items', () => {
@@ -46,9 +46,9 @@ describe('groupByWindow', () => {
   it('provides human-readable labels for each group', () => {
     const groups = groupByWindow(items)
 
-    expect(groups[0].label).toBe('Anti-Fighter Barrage')
-    expect(groups[1].label).toBe('Announce Retreat')
-    expect(groups[2].label).toBe('Combat Rolls')
+    expect(groups[0]!.label).toBe('Anti-Fighter Barrage')
+    expect(groups[1]!.label).toBe('Announce Retreat')
+    expect(groups[2]!.label).toBe('Combat Rolls')
   })
 
   it('handles an item with multiple play timings across windows', () => {
@@ -63,10 +63,10 @@ describe('groupByWindow', () => {
 
     const groups = groupByWindow([multiItem])
     expect(groups).toHaveLength(2)
-    expect(groups[0].window).toBe('tactical.space_combat.anti_fighter_barrage')
-    expect(groups[0].items.map(i => i.id)).toEqual(['multi'])
-    expect(groups[1].window).toBe('tactical.space_combat.combat_rolls')
-    expect(groups[1].items.map(i => i.id)).toEqual(['multi'])
+    expect(groups[0]!.window).toBe('tactical.space_combat.anti_fighter_barrage')
+    expect(groups[0]!.items.map(i => i.id)).toEqual(['multi'])
+    expect(groups[1]!.window).toBe('tactical.space_combat.combat_rolls')
+    expect(groups[1]!.items.map(i => i.id)).toEqual(['multi'])
   })
 
   it('returns empty array for no items', () => {

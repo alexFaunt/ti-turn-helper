@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import {
-  PHASES, ACTION_TYPES, TACTICAL_STEPS,
+  PHASES, TACTICAL_STEPS,
   SPACE_COMBAT_SUB_STEPS, INVASION_SUB_STEPS, STATUS_STEPS,
-  TIMINGS, VALID_WINDOWS, isValidWindow,
+  isValidWindow,
 } from '../enums'
 
 describe('enums', () => {

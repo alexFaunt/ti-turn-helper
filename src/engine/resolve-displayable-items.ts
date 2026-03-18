@@ -1,4 +1,4 @@
-import type { DisplayableItem, PlayTiming } from '../types'
+import type { DisplayableItem } from '../types'
 import type { Game } from '../types'
 import type { Technology, ActionCard, PromissoryNote, Relic, Faction } from '../types'
 

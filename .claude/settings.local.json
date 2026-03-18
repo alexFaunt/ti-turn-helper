@@ -1,7 +1,21 @@
 {
   "permissions": {
     "allow": [
-      "WebFetch(domain:code.claude.com)"
+      "WebFetch(domain:code.claude.com)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "Bash(npx vitest:*)",
+      "Bash(git -C /Users/alexfaunt/dev/ti-turn-helper status)",
+      "Bash(git -C /Users/alexfaunt/dev/ti-turn-helper log --oneline -5)",
+      "Bash(bun install:*)",
+      "Bash(bun run:*)",
+      "Bash(bunx vitest:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(bunx tsc:*)",
+      "Bash(ls /Users/alexfaunt/dev/ti-turn-helper/tsconfig*.json)",
+      "WebSearch",
+      "Bash(npx vite:*)"
     ],
     "deny": [],
     "ask": []

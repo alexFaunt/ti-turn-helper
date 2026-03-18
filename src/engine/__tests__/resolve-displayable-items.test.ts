@@ -141,8 +141,8 @@ describe('resolveDisplayableItems', () => {
     const result = resolveDisplayableItems(makeGame(), makeAllItems())
     const techItems = result.filter(i => i.sourceType === 'tech')
     expect(techItems).toHaveLength(1)
-    expect(techItems[0].id).toBe('plasma-scoring')
-    expect(techItems[0].name).toBe('Plasma Scoring')
+    expect(techItems[0]!.id).toBe('plasma-scoring')
+    expect(techItems[0]!.name).toBe('Plasma Scoring')
   })
 
   it('excludes tech without playTimings', () => {
@@ -150,28 +150,28 @@ describe('resolveDisplayableItems', () => {
     const result = resolveDisplayableItems(game, makeAllItems())
     const techItems = result.filter(i => i.sourceType === 'tech')
     expect(techItems).toHaveLength(1)
-    expect(techItems[0].id).toBe('plasma-scoring')
+    expect(techItems[0]!.id).toBe('plasma-scoring')
   })
 
   it('includes owned action cards with playTimings', () => {
     const result = resolveDisplayableItems(makeGame(), makeAllItems())
     const cards = result.filter(i => i.sourceType === 'action_card')
     expect(cards).toHaveLength(1)
-    expect(cards[0].id).toBe('direct-hit')
+    expect(cards[0]!.id).toBe('direct-hit')
   })
 
   it('includes faction abilities with playTimings', () => {
     const result = resolveDisplayableItems(makeGame(), makeAllItems())
     const abilities = result.filter(i => i.sourceType === 'faction_ability')
     expect(abilities).toHaveLength(1)
-    expect(abilities[0].name).toBe('Orbital Drop')
+    expect(abilities[0]!.name).toBe('Orbital Drop')
   })
 
   it('includes unlocked leaders with playTimings', () => {
     const result = resolveDisplayableItems(makeGame(), makeAllItems())
     const leaders = result.filter(i => i.sourceType === 'leader')
     expect(leaders).toHaveLength(1)
-    expect(leaders[0].name).toBe('Evelyn Delouis')
+    expect(leaders[0]!.name).toBe('Evelyn Delouis')
   })
 
   it('excludes locked leaders', () => {
@@ -185,21 +185,21 @@ describe('resolveDisplayableItems', () => {
     const result = resolveDisplayableItems(makeGame(), makeAllItems())
     const mechs = result.filter(i => i.sourceType === 'mech')
     expect(mechs).toHaveLength(1)
-    expect(mechs[0].name).toBe('ZS Thunderbolt M2')
+    expect(mechs[0]!.name).toBe('ZS Thunderbolt M2')
   })
 
   it('includes owned promissory notes with playTimings', () => {
     const result = resolveDisplayableItems(makeGame(), makeAllItems())
     const notes = result.filter(i => i.sourceType === 'promissory_note')
     expect(notes).toHaveLength(1)
-    expect(notes[0].id).toBe('trade-agreement')
+    expect(notes[0]!.id).toBe('trade-agreement')
   })
 
   it('includes owned relics with playTimings', () => {
     const result = resolveDisplayableItems(makeGame(), makeAllItems())
     const relics = result.filter(i => i.sourceType === 'relic')
     expect(relics).toHaveLength(1)
-    expect(relics[0].id).toBe('maw-of-worlds')
+    expect(relics[0]!.id).toBe('maw-of-worlds')
   })
 
   it('returns empty when game owns nothing', () => {
