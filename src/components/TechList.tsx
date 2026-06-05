@@ -1,4 +1,5 @@
 import type { Technology } from '../types'
+import { SectionHeading } from './SectionHeading'
 import styles from './TechList.module.css'
 
 interface TechListProps {
@@ -34,7 +35,7 @@ export function TechList({ techs, ownedTechIds, onToggle }: TechListProps) {
     <div>
       {groups.map(group => (
         <section key={group.label} className={styles.section}>
-          <h3 className={styles.groupHeading}>{group.label}</h3>
+          <SectionHeading as="h3">{group.label}</SectionHeading>
           <div className={styles.techGrid}>
             {group.techs.map(tech => (
               <button

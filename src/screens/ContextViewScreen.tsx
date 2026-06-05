@@ -5,6 +5,7 @@ import { WindowGroupDisplay } from '../components/WindowGroupDisplay'
 import { ConfirmModal } from '../components/ConfirmModal'
 import { ProductionCalculator } from '../components/ProductionCalculator'
 import { windowLabel } from '../engine'
+import { loadFactions } from '../data'
 import styles from './ContextViewScreen.module.css'
 
 interface PendingRemoval {
@@ -32,13 +33,25 @@ export function ContextViewScreen() {
 
   if (loading) return <div className={styles.loading}>Loading...</div>
 
+  const total = groups.reduce((sum, g) => sum + g.items.length, 0)
+  const faction = game ? loadFactions().find(f => f.id === game.factionId) : undefined
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <button className={styles.backBtn} onClick={() => navigate(`/game/${gameId}`)}>
-          Back
+        <button
+          className={styles.backBtn}
+          onClick={() => navigate(`/game/${gameId}`)}
+          aria-label="Back"
+        >
+          ‹
         </button>
-        <h1 className={styles.title}>{windowLabel(decodedPrefix)}</h1>
+        <div className={styles.headingText}>
+          <h1 className={styles.title}>{windowLabel(decodedPrefix)}</h1>
+          <p className={styles.sub}>
+            {total} playable{faction ? ` · ${faction.name}` : ''}
+          </p>
+        </div>
       </header>
 
       <div className={styles.content}>

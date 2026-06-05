@@ -1,0 +1,105 @@
+/* ============================================================
+   TI4 Turn Helper — global theme  (Design A · Command Console)
+   Dark sci-fi HUD: cyan readouts, mono telemetry, faction gold.
+   ============================================================ */
+
+/* ---- self-hosted fonts (latin woff2 subsets, offline-safe) ---- */
+@font-face{ font-family:'Orbitron'; font-style:normal; font-weight:500; font-display:swap; src:url('./assets/fonts/orbitron-500.woff2') format('woff2'); }
+@font-face{ font-family:'Orbitron'; font-style:normal; font-weight:700; font-display:swap; src:url('./assets/fonts/orbitron-700.woff2') format('woff2'); }
+@font-face{ font-family:'Rajdhani'; font-style:normal; font-weight:400; font-display:swap; src:url('./assets/fonts/rajdhani-400.woff2') format('woff2'); }
+@font-face{ font-family:'Rajdhani'; font-style:normal; font-weight:500; font-display:swap; src:url('./assets/fonts/rajdhani-500.woff2') format('woff2'); }
+@font-face{ font-family:'Rajdhani'; font-style:normal; font-weight:600; font-display:swap; src:url('./assets/fonts/rajdhani-600.woff2') format('woff2'); }
+@font-face{ font-family:'Rajdhani'; font-style:normal; font-weight:700; font-display:swap; src:url('./assets/fonts/rajdhani-700.woff2') format('woff2'); }
+@font-face{ font-family:'Share Tech Mono'; font-style:normal; font-weight:400; font-display:swap; src:url('./assets/fonts/share-tech-mono-400.woff2') format('woff2'); }
+
+:root{
+  /* type */
+  --font-display:'Orbitron','Rajdhani',system-ui,sans-serif;
+  --font-ui:'Rajdhani',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-mono:'Share Tech Mono',ui-monospace,'SF Mono',Menlo,monospace;
+
+  /* surfaces */
+  --bg:#070b13;
+  --grid:#0c1626;
+  --surface:#0b1421;       /* cards */
+  --surface-2:#0d1726;     /* raised cells */
+  --surface-3:#0a111d;
+  --border:#18293c;
+  --border-2:#1c3247;
+
+  /* brand */
+  --accent:#46e7e0;        /* cyan readout */
+  --accent-2:#2bd4cf;
+  --accent-dim:#1f5b66;
+  --accent-deep:#07181a;
+  --gold:#f5c542;          /* faction */
+  --gold-dim:#5a4a17;
+  --gold-deep:#1a1607;
+  --timing:#ff8a5b;        /* orange timing text */
+  --danger:#ff5b6e;
+  --slate:#9db4cc;
+
+  /* text */
+  --text:#cde0f2;
+  --text-bright:#eaf5ff;
+  --muted:#7d97b3;
+  --muted-2:#516a85;
+
+  --radius:11px;
+  --radius-sm:8px;
+}
+
+*{ box-sizing:border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:var(--font-ui);
+  font-size:16px;
+  letter-spacing:.2px;
+  color:var(--text);
+  background-color:var(--bg);
+  background-image:
+    radial-gradient(circle at 18% -8%, #14223a 0%, transparent 42%),
+    radial-gradient(circle at 88% 108%, #0f1d31 0%, transparent 40%),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:100% 100%, 100% 100%, 23px 23px, 23px 23px;
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* base elements — keep any un-themed corner coherent */
+h1,h2,h3{ font-family:var(--font-display); color:var(--text-bright); letter-spacing:1px; line-height:1.15; }
+p{ margin:0; }
+a{ color:var(--accent); }
+
+button{
+  font-family:var(--font-ui);
+  font-size:1rem;
+  color:var(--text);
+  background:var(--surface-2);
+  border:1px solid var(--border-2);
+  border-radius:var(--radius-sm);
+  cursor:pointer;
+  transition:border-color .15s, box-shadow .15s, background .15s, color .15s;
+}
+button:hover{ border-color:var(--accent-dim); }
+button:active{ transform:translateY(1px); }
+
+input,textarea,select{
+  font-family:var(--font-ui);
+  color:var(--text);
+  background:var(--surface);
+  border:1px solid var(--border-2);
+  border-radius:var(--radius-sm);
+}
+input::placeholder,textarea::placeholder{ color:var(--muted-2); }
+
+:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+::selection{ background:var(--accent-dim); color:#fff; }
+
+*::-webkit-scrollbar{ width:6px; height:6px; }
+*::-webkit-scrollbar-thumb{ background:#1c3247; border-radius:3px; }
+*::-webkit-scrollbar-track{ background:transparent; }

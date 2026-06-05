@@ -1,5 +1,6 @@
 import type { WindowGroup } from '../engine'
 import { ItemCard } from './ItemCard'
+import { SectionHeading } from './SectionHeading'
 import styles from './WindowGroupDisplay.module.css'
 
 interface WindowGroupDisplayProps {
@@ -10,7 +11,7 @@ interface WindowGroupDisplayProps {
 export function WindowGroupDisplay({ group, onLongPressItem }: WindowGroupDisplayProps) {
   return (
     <section className={styles.group}>
-      <h2 className={styles.heading}>{group.label}</h2>
+      <SectionHeading as="h2">{group.label}</SectionHeading>
       <div className={styles.itemList}>
         {group.items.map(item => (
           <ItemCard

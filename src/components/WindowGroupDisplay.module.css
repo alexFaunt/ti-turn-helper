@@ -1,18 +1,9 @@
 .group {
-  margin-bottom: 1.25rem;
-}
-
-.heading {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #555;
-  margin: 0 0 0.5rem;
-  padding-bottom: 0.25rem;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 1.1rem;
 }
 
 .itemList {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 9px;
 }

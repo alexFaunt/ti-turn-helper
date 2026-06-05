@@ -28,7 +28,7 @@ export function LeaderList({ leaders, leaderStates, onToggle }: LeaderListProps)
               className={`${styles.toggleBtn} ${isUnlocked ? styles.unlocked : ''}`}
               onClick={() => onToggle(leader.name)}
             >
-              {isUnlocked ? 'Unlock' : 'Lock'}
+              {isUnlocked ? 'Lock' : 'Unlock'}
             </button>
           </div>
         )
