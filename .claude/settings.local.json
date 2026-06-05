@@ -45,5 +45,19 @@
   },
   "enabledPlugins": {
     "superpowers@claude-plugins-official": true
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/verify-visual-stop.sh\"",
+            "timeout": 30,
+            "statusMessage": "Checking visual changes were verified with Playwright..."
+          }
+        ]
+      }
+    ]
   }
 }
