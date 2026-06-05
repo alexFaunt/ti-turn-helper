@@ -22,7 +22,7 @@ const items: DisplayableItem[] = [
 
 describe('groupByWindow', () => {
   it('groups items by their play timing windows in chronological order', () => {
-    const groups = groupByWindow(items)
+    const groups = groupByWindow(items, 'tactical.space_combat')
 
     expect(groups).toHaveLength(3)
     expect(groups[0]!.window).toBe('tactical.space_combat.anti_fighter_barrage')
@@ -34,7 +34,7 @@ describe('groupByWindow', () => {
   })
 
   it('omits empty groups — only returns windows that have items', () => {
-    const groups = groupByWindow(items)
+    const groups = groupByWindow(items, 'tactical.space_combat')
     const windows = groups.map(g => g.window)
 
     // These windows should NOT appear since no items reference them
@@ -44,7 +44,7 @@ describe('groupByWindow', () => {
   })
 
   it('provides human-readable labels for each group', () => {
-    const groups = groupByWindow(items)
+    const groups = groupByWindow(items, 'tactical.space_combat')
 
     expect(groups[0]!.label).toBe('Anti-Fighter Barrage')
     expect(groups[1]!.label).toBe('Announce Retreat')
@@ -61,7 +61,7 @@ describe('groupByWindow', () => {
       ],
     }
 
-    const groups = groupByWindow([multiItem])
+    const groups = groupByWindow([multiItem], 'tactical.space_combat')
     expect(groups).toHaveLength(2)
     expect(groups[0]!.window).toBe('tactical.space_combat.anti_fighter_barrage')
     expect(groups[0]!.items.map(i => i.id)).toEqual(['multi'])
@@ -69,8 +69,46 @@ describe('groupByWindow', () => {
     expect(groups[1]!.items.map(i => i.id)).toEqual(['multi'])
   })
 
+  it('excludes out-of-context windows for a multi-phase item', () => {
+    // Plasma Scoring triggers in BOTH space combat and invasion.
+    const plasmaScoring: DisplayableItem = {
+      id: 'plasma-scoring', name: 'Plasma Scoring', description: 'extra die',
+      sourceType: 'tech',
+      playTimings: [
+        { wording: 'BOMBARDMENT die', window: 'tactical.invasion.bombardment', timing: 'during', mustBeActivePlayer: true },
+        { wording: 'SPACE CANNON die', window: 'tactical.space_combat.space_cannon_offense', timing: 'during', mustBeActivePlayer: false },
+        { wording: 'SPACE CANNON die', window: 'tactical.invasion.space_cannon_defense', timing: 'during', mustBeActivePlayer: false },
+      ],
+    }
+
+    const groups = groupByWindow([plasmaScoring], 'tactical.space_combat')
+    const windows = groups.map(g => g.window)
+
+    // Only the in-context space combat window — no invasion groups.
+    expect(windows).toEqual(['tactical.space_combat.space_cannon_offense'])
+    expect(windows).not.toContain('tactical.invasion.bombardment')
+    expect(windows).not.toContain('tactical.invasion.space_cannon_defense')
+    // Item appears exactly once.
+    expect(groups[0]!.items.map(i => i.id)).toEqual(['plasma-scoring'])
+  })
+
+  it('matches the bare prefix window plus its sub-steps', () => {
+    // A top-level prefix should keep both the exact window and deeper ones.
+    const item: DisplayableItem = {
+      id: 'bare', name: 'Bare', description: 'top-level + sub-step',
+      sourceType: 'tech',
+      playTimings: [
+        { wording: 'whole space combat', window: 'tactical.space_combat', timing: 'during', mustBeActivePlayer: true },
+        { wording: 'combat rolls', window: 'tactical.space_combat.combat_rolls', timing: 'during', mustBeActivePlayer: true },
+      ],
+    }
+
+    const groups = groupByWindow([item], 'tactical.space_combat')
+    expect(groups.map(g => g.window)).toEqual(['tactical.space_combat', 'tactical.space_combat.combat_rolls'])
+  })
+
   it('returns empty array for no items', () => {
-    expect(groupByWindow([])).toEqual([])
+    expect(groupByWindow([], 'tactical.space_combat')).toEqual([])
   })
 })
 

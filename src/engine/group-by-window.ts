@@ -1,5 +1,6 @@
 import type { DisplayableItem } from '../types'
 import { WINDOW_DISPLAY_ORDER } from '../types'
+import { isWindowInContext } from './filter-by-context'
 
 export interface WindowGroup {
   window: string
@@ -44,12 +45,15 @@ export function windowLabel(window: string): string {
   return WINDOW_LABELS[window] ?? window
 }
 
-export function groupByWindow(items: DisplayableItem[]): WindowGroup[] {
+export function groupByWindow(items: DisplayableItem[], windowPrefix: string): WindowGroup[] {
   // Collect items into groups by their play timing windows
   const windowItems = new Map<string, DisplayableItem[]>()
 
   for (const item of items) {
     for (const pt of item.playTimings) {
+      // A multi-phase item can carry timings outside the active context
+      // (e.g. Plasma Scoring also triggers in Invasion); don't bucket those here.
+      if (!isWindowInContext(pt.window, windowPrefix)) continue
       const existing = windowItems.get(pt.window)
       if (existing) {
         // Avoid duplicates within a group
