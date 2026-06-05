@@ -34,7 +34,7 @@ export function useGameContext(gameId: string | undefined, windowPrefix: string)
       technologies, actionCards, promissoryNotes, relics, factions,
     })
     const filtered = filterByContext(allDisplayable, windowPrefix)
-    return groupByWindow(filtered)
+    return groupByWindow(filtered, windowPrefix)
   }, [windowPrefix])
 
   const load = useCallback(async () => {

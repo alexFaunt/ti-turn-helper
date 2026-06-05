@@ -1,6 +1,9 @@
 # Bug: context view shows out-of-context window groups
 
-**Status:** open · pre-existing (not introduced by the Design A reskin) · out of scope for that work
+**Status:** FIXED — `groupByWindow` now takes `windowPrefix` and skips out-of-context timings
+(shared `isWindowInContext` predicate with `filterByContext`). Verified by unit test +
+Playwright (Barony of Letnev → Space Combat shows only Space Cannon Offense + Combat Rolls,
+no Invasion groups).
 **Severity:** medium — confusing/incorrect grouping, no data loss
 
 ## Symptom
