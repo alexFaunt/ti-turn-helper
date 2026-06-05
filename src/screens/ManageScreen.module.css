@@ -71,6 +71,31 @@
   box-shadow: inset 0 0 0 1px var(--accent-dim);
 }
 
+/* Search mode: category has matches — selected palette, but dimmer (no inset glow). */
+.tabMatch {
+  background: var(--accent-deep);
+  color: var(--accent);
+  border-color: var(--accent-dim);
+  opacity: 0.55;
+}
+
+/* Search mode: category has no matches — disabled-style dim. */
+.tabDimmed {
+  opacity: 0.3;
+}
+
 .content {
   min-height: 200px;
+}
+
+.resultGroup {
+  margin-bottom: 1.5rem;
+}
+
+.noResults {
+  text-align: center;
+  padding: 2rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
 }

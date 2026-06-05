@@ -6,11 +6,14 @@ interface TechListProps {
   techs: Technology[]
   ownedTechIds: string[]
   onToggle: (techId: string) => void
+  /** When set, sub-group headings render as "<prefix>: <group>" (e.g. "Techs: Green") at h2.
+   *  Used by the Manage search results so techs avoid a redundant "// Techs" + "// Green" pair. */
+  groupLabelPrefix?: string
 }
 
 const COLOR_ORDER = ['blue', 'green', 'red', 'yellow'] as const
 
-export function TechList({ techs, ownedTechIds, onToggle }: TechListProps) {
+export function TechList({ techs, ownedTechIds, onToggle, groupLabelPrefix }: TechListProps) {
   const ownedSet = new Set(ownedTechIds)
 
   const colorGroups = COLOR_ORDER.map(color => ({
@@ -35,7 +38,9 @@ export function TechList({ techs, ownedTechIds, onToggle }: TechListProps) {
     <div>
       {groups.map(group => (
         <section key={group.label} className={styles.section}>
-          <SectionHeading as="h3">{group.label}</SectionHeading>
+          <SectionHeading as={groupLabelPrefix ? 'h2' : 'h3'}>
+            {groupLabelPrefix ? `${groupLabelPrefix}: ${group.label}` : group.label}
+          </SectionHeading>
           <div className={styles.techGrid}>
             {group.techs.map(tech => (
               <button
