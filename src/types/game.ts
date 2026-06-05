@@ -18,4 +18,5 @@ export interface Game {
   ownedPromissoryNoteIds: string[]
   ownedRelicIds: string[]
   leaderStates: Record<string, LeaderState>
+  notes?: string
 }
