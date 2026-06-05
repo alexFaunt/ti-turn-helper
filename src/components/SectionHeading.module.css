@@ -1,0 +1,27 @@
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted-2);
+  margin: 0 0 0.7rem;
+}
+
+.text {
+  white-space: nowrap;
+}
+.text::before {
+  content: '// ';
+}
+
+.heading::after {
+  content: '';
+  flex: 1;
+  min-width: 24px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}

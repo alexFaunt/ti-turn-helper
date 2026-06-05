@@ -1,64 +1,102 @@
 .container {
   max-width: 480px;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 1.5rem 1rem 2rem;
 }
 
 .title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-bright);
+  text-shadow: 0 0 18px rgba(70, 231, 224, .25);
+  margin: 0 0 1.25rem;
 }
 
 .newGameBtn {
   width: 100%;
-  padding: 0.75rem;
-  font-size: 1rem;
-  margin-bottom: 1rem;
-  cursor: pointer;
+  padding: 0.85rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-deep);
+  border: 1px solid var(--accent-dim);
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+}
+.newGameBtn:hover {
+  box-shadow: 0 0 0 1px var(--accent-dim), 0 0 24px -10px var(--accent);
+  border-color: var(--accent);
 }
 
 .gameList {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.6rem;
 }
 
 .gameCard {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
+  padding: 0.85rem;
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--accent);
+  border-radius: var(--radius);
+  background: linear-gradient(150deg, var(--surface), var(--surface-3));
 }
 
 .gameLink {
   display: flex;
   flex-direction: column;
+  gap: 3px;
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
   flex: 1;
+  min-width: 0;
 }
 
 .gameName {
-  font-weight: bold;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-bright);
 }
 
 .gameFaction {
-  font-size: 0.875rem;
-  color: #666;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: .5px;
+  color: var(--gold);
 }
 
 .deleteBtn {
-  color: #c00;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--danger);
   background: none;
-  border: none;
-  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 6px 9px;
+  flex-shrink: 0;
 }
+.deleteBtn:hover { border-color: #4a1f27; background: #1a0b0e; }
 
 .empty {
-  color: #666;
+  color: var(--muted);
   text-align: center;
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  margin-top: 2rem;
 }

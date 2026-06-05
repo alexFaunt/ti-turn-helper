@@ -36,13 +36,15 @@ export function ManageScreen() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <button className={styles.backBtn} onClick={() => navigate(`/game/${gameId}`)}>
-          Back
+        <button
+          className={styles.backBtn}
+          onClick={() => navigate(`/game/${gameId}`)}
+          aria-label="Back"
+        >
+          ‹
         </button>
         <h1 className={styles.title}>Manage</h1>
       </header>
-
-      <SearchBox value={search} onChange={setSearch} />
 
       <div className={styles.tabs}>
         {TABS.map(tab => (
@@ -55,6 +57,8 @@ export function ManageScreen() {
           </button>
         ))}
       </div>
+
+      <SearchBox value={search} onChange={setSearch} />
 
       <div className={styles.content}>
         {activeTab === 'Techs' && (

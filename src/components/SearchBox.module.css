@@ -4,13 +4,21 @@
 
 .input {
   width: 100%;
-  padding: 0.625rem 0.75rem;
+  padding: 0.65rem 0.8rem;
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 0.375rem;
+  font-family: var(--font-ui);
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-sm);
   box-sizing: border-box;
+}
+.input:focus {
+  outline: none;
+  border-color: var(--accent-dim);
+  box-shadow: 0 0 0 1px var(--accent-dim);
 }
 
 .input::placeholder {
-  color: #999;
+  color: var(--muted-2);
 }

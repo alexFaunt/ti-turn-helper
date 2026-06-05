@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { getGame, updateGame } from '../db'
 import { loadFactions } from '../data'
 import type { Game } from '../types/game'
+import { SectionHeading } from '../components/SectionHeading'
 import styles from './DashboardScreen.module.css'
 
 const NOTES_DEBOUNCE_MS = 400
@@ -72,19 +73,24 @@ export function DashboardScreen() {
 
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <button className={styles.homeBtn} onClick={() => navigate('/')}>Home</button>
-        <div className={styles.headerInfo}>
+      <nav className={styles.topbar}>
+        <button className={styles.chip} onClick={() => navigate('/')}>‹ Home</button>
+      </nav>
+      <header className={styles.identity}>
+        <span className={styles.sigil} aria-hidden="true" />
+        <div className={styles.identityText}>
           <h1 className={styles.gameName}>{game.name}</h1>
           <p className={styles.factionName}>{faction?.name ?? game.factionId}</p>
         </div>
-        <button
-          className={styles.manageBtn}
-          onClick={() => navigate(`/game/${game.id}/manage`)}
-        >
-          Manage
-        </button>
       </header>
+      <SectionHeading>Add cards, techs, relics etc.</SectionHeading>
+      <button
+        className={styles.manageAction}
+        onClick={() => navigate(`/game/${game.id}/manage`)}
+      >
+        Manage
+      </button>
+      <SectionHeading>Select phase window</SectionHeading>
       <div className={styles.buttonGrid}>
         {CONTEXT_BUTTONS.map(btn => (
           <button
@@ -94,12 +100,13 @@ export function DashboardScreen() {
               navigate(`/game/${game.id}/context/${encodeURIComponent(btn.windowPrefix)}`)
             }
           >
-            {btn.label}
+            <span className={styles.phaseLabel}>{btn.label}</span>
+            <span className={styles.phasePath}>{btn.windowPrefix}</span>
           </button>
         ))}
       </div>
       <section className={styles.notes}>
-        <label className={styles.notesLabel} htmlFor="game-notes">Notes</label>
+        <SectionHeading as="label" htmlFor="game-notes">Notes</SectionHeading>
         <textarea
           id="game-notes"
           ref={notesRef}

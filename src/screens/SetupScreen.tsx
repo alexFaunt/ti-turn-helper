@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { createGame } from '../db'
 import { loadFactions } from '../data'
 import { EXPANSIONS, type Expansion } from '../types'
+import { SectionHeading } from '../components/SectionHeading'
 import styles from './SetupScreen.module.css'
 
 const EXPANSION_LABELS: Record<string, string> = {
@@ -44,16 +45,15 @@ export function SetupScreen() {
     return (
       <div className={styles.container}>
         <h1>New Game</h1>
-        <label className={styles.nameLabel}>
-          Game Name
-          <input
-            className={styles.nameInput}
-            value={gameName}
-            onChange={e => setGameName(e.target.value)}
-            placeholder="Optional"
-          />
-        </label>
-        <h2>Select Expansions</h2>
+        <SectionHeading as="label" htmlFor="game-name">Game Name</SectionHeading>
+        <input
+          id="game-name"
+          className={styles.nameInput}
+          value={gameName}
+          onChange={e => setGameName(e.target.value)}
+          placeholder="Optional"
+        />
+        <SectionHeading as="h2">Select Expansions</SectionHeading>
         <div className={styles.expansionList}>
           {[...EXPANSIONS, 'thunders-edge' as const].map(exp => {
             const isThundersEdge = exp === 'thunders-edge'

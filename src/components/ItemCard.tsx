@@ -39,7 +39,7 @@ export function ItemCard({ item, onLongPress }: ItemCardProps) {
     >
       <div className={styles.header}>
         <span className={styles.name}>{item.name}</span>
-        <span className={styles.sourceType}>
+        <span className={styles.sourceType} data-source={item.sourceType}>
           {SOURCE_TYPE_LABELS[item.sourceType] ?? item.sourceType}
         </span>
       </div>
