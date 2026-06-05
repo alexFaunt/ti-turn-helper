@@ -19,7 +19,7 @@ export function ActionCardList({ cards, ownedCards, onAdjust }: ActionCardListPr
           <div key={card.id} className={styles.card}>
             <div className={styles.cardInfo} onClick={() => onAdjust(card.id, 1)}>
               <p className={styles.cardName}>{card.name}</p>
-              <p className={styles.cardTiming}>{card.playTiming}</p>
+              <p className={styles.cardDescription}>{card.description}</p>
             </div>
             <div className={styles.controls}>
               <button
