@@ -30,6 +30,8 @@
   border: 1px solid var(--border-2);
   color: var(--slate);
   flex-shrink: 0;
+  min-width: 4.5rem;
+  text-align: center;
 }
 
 .info {
@@ -64,6 +66,8 @@
   background: var(--surface-2);
   cursor: pointer;
   flex-shrink: 0;
+  min-width: 4.25rem;
+  text-align: center;
 }
 .toggleBtn:hover { border-color: var(--accent-dim); }
 
