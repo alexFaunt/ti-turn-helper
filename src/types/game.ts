@@ -17,6 +17,8 @@ export interface Game {
   ownedActionCards: OwnedActionCard[]
   ownedPromissoryNoteIds: string[]
   ownedRelicIds: string[]
+  /** Laws (persistent agendas) currently in play that affect this player. */
+  enactedLawIds: string[]
   leaderStates: Record<string, LeaderState>
   notes?: string
 }

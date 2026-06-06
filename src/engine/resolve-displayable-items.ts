@@ -1,6 +1,7 @@
 import type { DisplayableItem } from '../types'
 import type { Game } from '../types'
-import type { Technology, ActionCard, PromissoryNote, Relic, Faction } from '../types'
+import type { Technology, ActionCard, PromissoryNote, Relic, Faction, Agenda } from '../types'
+import { lawEffectText } from '../data'
 
 export interface AllItems {
   technologies: Technology[]
@@ -8,6 +9,7 @@ export interface AllItems {
   promissoryNotes: PromissoryNote[]
   relics: Relic[]
   factions: Faction[]
+  laws: Agenda[]
 }
 
 export function resolveDisplayableItems(game: Game, allItems: AllItems): DisplayableItem[] {
@@ -69,6 +71,21 @@ export function resolveDisplayableItems(game: Game, allItems: AllItems): Display
         description: relic.description,
         sourceType: 'relic',
         playTimings: relic.playTimings,
+      })
+    }
+  }
+
+  // Enacted laws with playTimings (passive laws have none → tab-only, never surface here)
+  const lawMap = new Map(allItems.laws.map(l => [l.id, l]))
+  for (const lawId of game.enactedLawIds ?? []) {
+    const law = lawMap.get(lawId)
+    if (law?.playTimings?.length) {
+      result.push({
+        id: law.id,
+        name: law.name,
+        description: lawEffectText(law),
+        sourceType: 'law',
+        playTimings: law.playTimings,
       })
     }
   }

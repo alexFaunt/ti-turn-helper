@@ -17,6 +17,7 @@ export function WindowGroupDisplay({ group, onLongPressItem }: WindowGroupDispla
           <ItemCard
             key={item.id}
             item={item}
+            window={group.window}
             onLongPress={
               onLongPressItem
                 ? () => onLongPressItem(item.id, item.name)

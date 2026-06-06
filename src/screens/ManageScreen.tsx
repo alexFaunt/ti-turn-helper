@@ -8,17 +8,18 @@ import { ActionCardList } from '../components/ActionCardList'
 import { PromissoryNoteList } from '../components/PromissoryNoteList'
 import { RelicList } from '../components/RelicList'
 import { LeaderList } from '../components/LeaderList'
+import { LawList } from '../components/LawList'
 import styles from './ManageScreen.module.css'
 
-const TABS = ['Techs', 'Action Cards', 'Promissory', 'Relics', 'Leaders'] as const
+const TABS = ['Techs', 'Action Cards', 'Promissory', 'Relics', 'Leaders', 'Laws'] as const
 type Tab = (typeof TABS)[number]
 
 export function ManageScreen() {
   const { gameId } = useParams<{ gameId: string }>()
   const navigate = useNavigate()
   const {
-    game, faction, techs, actionCards, promissoryNotes, relics, loading,
-    toggleTech, adjustActionCard, togglePromissoryNote, toggleRelic, toggleLeader,
+    game, faction, techs, actionCards, promissoryNotes, relics, laws, loading,
+    toggleTech, adjustActionCard, togglePromissoryNote, toggleRelic, toggleLeader, toggleLaw,
   } = useManageGame(gameId)
 
   const [activeTab, setActiveTab] = useState<Tab>('Techs')
@@ -42,10 +43,11 @@ export function ManageScreen() {
     promissoryNotes: filterByName(promissoryNotes),
     relics: filterByName(relics),
     leaders: filterByName(faction?.leaders ?? []),
+    laws: filterByName(laws),
   }
   const totalMatches =
     matches.techs.length + matches.actionCards.length + matches.promissoryNotes.length +
-    matches.relics.length + matches.leaders.length
+    matches.relics.length + matches.leaders.length + matches.laws.length
 
   const matchCount: Record<Tab, number> = {
     Techs: matches.techs.length,
@@ -53,6 +55,7 @@ export function ManageScreen() {
     Promissory: matches.promissoryNotes.length,
     Relics: matches.relics.length,
     Leaders: matches.leaders.length,
+    Laws: matches.laws.length,
   }
 
   return (
@@ -145,6 +148,16 @@ export function ManageScreen() {
                   />
                 </section>
               )}
+              {matches.laws.length > 0 && (
+                <section className={styles.resultGroup}>
+                  <SectionHeading as="h2">Laws</SectionHeading>
+                  <LawList
+                    laws={matches.laws}
+                    enactedLawIds={game.enactedLawIds ?? []}
+                    onToggle={toggleLaw}
+                  />
+                </section>
+              )}
             </>
           )
         ) : (
@@ -182,6 +195,13 @@ export function ManageScreen() {
                 leaders={faction.leaders}
                 leaderStates={game.leaderStates}
                 onToggle={toggleLeader}
+              />
+            )}
+            {activeTab === 'Laws' && (
+              <LawList
+                laws={laws}
+                enactedLawIds={game.enactedLawIds ?? []}
+                onToggle={toggleLaw}
               />
             )}
           </>

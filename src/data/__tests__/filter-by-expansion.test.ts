@@ -31,6 +31,24 @@ describe('filterByExpansion', () => {
     const result = filterByExpansion(mockItems, all)
     expect(result.find(i => i.id === 'thunders-edge-item')).toBeUndefined()
   })
+
+  it('drops removedByPok items when pok is selected', () => {
+    const items = [
+      { id: 'keeper', source: 'base' },
+      { id: 'dropped', source: 'base', removedByPok: true },
+    ]
+    const result = filterByExpansion(items, ['base', 'pok'])
+    expect(result.map(i => i.id)).toEqual(['keeper'])
+  })
+
+  it('keeps removedByPok items when pok is NOT selected', () => {
+    const items = [
+      { id: 'keeper', source: 'base' },
+      { id: 'kept', source: 'base', removedByPok: true },
+    ]
+    const result = filterByExpansion(items, ['base'])
+    expect(result.map(i => i.id)).toEqual(['keeper', 'kept'])
+  })
 })
 
 describe('resolveOmegaReplacements', () => {

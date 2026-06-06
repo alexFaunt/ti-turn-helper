@@ -4,6 +4,8 @@ interface HasSource {
   id: string
   source: string
   replaces?: string
+  /** Base-game items reworked/removed when Prophecy of Kings is in play. */
+  removedByPok?: boolean
 }
 
 export function filterByExpansion<T extends HasSource>(
@@ -11,7 +13,8 @@ export function filterByExpansion<T extends HasSource>(
   expansions: Expansion[],
 ): T[] {
   const expansionSet = new Set<string>(expansions)
-  return items.filter(item => expansionSet.has(item.source))
+  const pok = expansionSet.has('pok')
+  return items.filter(item => expansionSet.has(item.source) && !(pok && item.removedByPok))
 }
 
 export function resolveOmegaReplacements<T extends HasSource>(
