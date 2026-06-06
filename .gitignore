@@ -15,6 +15,9 @@ dist-ssr
 # Playwright MCP screenshot/snapshot artifacts
 .playwright-mcp/
 
+# Superpowers specs/plans (local working docs)
+docs/superpowers/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
