@@ -475,6 +475,12 @@
         "window": "tactical.activation",
         "timing": "after",
         "mustBeActivePlayer": true
+      },
+      {
+        "wording": "After you activate a system",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": true
       }
     ]
   },
