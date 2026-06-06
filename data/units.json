@@ -129,7 +129,6 @@
     "combat": 9,
     "move": 2,
     "capacity": 6,
-    "abilities": ["SUSTAIN DAMAGE"],
     "source": "base",
     "upgradeOf": "carrier-1",
     "techId": "carrier-2"
