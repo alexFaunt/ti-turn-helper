@@ -100,11 +100,20 @@ describe('ItemCard', () => {
     expect(screen.getByText('Delete')).toBeInTheDocument()
   })
 
-  it('tapping revealed Delete removes the item', () => {
-    const { onDelete } = renderCard()
-    swipe(screen.getByTestId('item-card'), -100)
-    fireEvent.click(screen.getByText('Delete'))
-    expect(onDelete).toHaveBeenCalledTimes(1)
+  it('tapping Delete animates out, then removes after the exit delay', () => {
+    vi.useFakeTimers()
+    try {
+      const { onDelete } = renderCard()
+      swipe(screen.getByTestId('item-card'), -100)
+      fireEvent.click(screen.getByText('Delete'))
+      // deferred until the fly-off animation finishes; button hidden meanwhile
+      expect(onDelete).not.toHaveBeenCalled()
+      expect(screen.queryByText('Delete')).not.toBeInTheDocument()
+      vi.advanceTimersByTime(300)
+      expect(onDelete).toHaveBeenCalledTimes(1)
+    } finally {
+      vi.useRealTimers()
+    }
   })
 
   it('short swipe under threshold stays closed', () => {

@@ -26,15 +26,21 @@ const SOURCE_TYPE_LABELS: Record<string, string> = {
 const REVEAL_WIDTH = 80   // px the card slides to expose the Delete button
 const OPEN_THRESHOLD = 40 // px of horizontal travel needed to snap open
 const AXIS_SLOP = 6       // px before we commit to a horizontal/vertical axis
+const EXIT_MS = 240       // fly-off + collapse duration before the item is removed
 
 export function ItemCard({ item, onDelete, isOpen = false, onOpenChange }: ItemCardProps) {
   const removable = !!onDelete
   const [dx, setDx] = useState(0)
   const [side, setSide] = useState<'left' | 'right' | null>(null)
   const [isDragging, setIsDragging] = useState(false)
+  const [exiting, setExiting] = useState(false)
+  const [maxH, setMaxH] = useState<number | undefined>(undefined)
   const start = useRef<{ x: number; y: number } | null>(null)
   const axis = useRef<'none' | 'h' | 'v'>('none')
   const dragging = useRef(false)
+  const rowRef = useRef<HTMLDivElement>(null)
+  const exitingRef = useRef(false)
+  const exitTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   // mirror of dx so touchend reads the latest offset even when no re-render
   // happened between touchmove and touchend (e.g. a fast flick in one frame)
   const dxRef = useRef(0)
@@ -48,6 +54,9 @@ export function ItemCard({ item, onDelete, isOpen = false, onOpenChange }: ItemC
   useEffect(() => {
     if (!isOpen) { setOffset(0); setSide(null) }
   }, [isOpen])
+
+  // Cancel a pending removal if the card unmounts for any other reason.
+  useEffect(() => () => { if (exitTimer.current) clearTimeout(exitTimer.current) }, [])
 
   function handleTouchStart(e: TouchEvent) {
     if (!removable) return
@@ -103,13 +112,25 @@ export function ItemCard({ item, onDelete, isOpen = false, onOpenChange }: ItemC
 
   function handleDelete(e: MouseEvent) {
     e.stopPropagation()
-    onDelete?.()
+    if (exitingRef.current) return
+    exitingRef.current = true
+    setMaxH(rowRef.current?.offsetHeight) // lock current height so it can transition to 0
+    setExiting(true)                       // card flies off + fades
+    requestAnimationFrame(() => requestAnimationFrame(() => setMaxH(0))) // then collapse the gap
+    exitTimer.current = setTimeout(() => onDelete?.(), EXIT_MS)
   }
 
-  const showDelete = removable && side !== null
+  const showDelete = removable && side !== null && !exiting
+  const cardStyle = exiting
+    ? { transform: `translateX(${side === 'left' ? '120%' : '-120%'})`, opacity: 0 }
+    : { transform: `translateX(${dx}px)`, transition: isDragging ? 'none' : undefined }
 
   return (
-    <div className={styles.row}>
+    <div
+      ref={rowRef}
+      className={`${styles.row} ${exiting ? styles.rowExiting : ''}`}
+      style={maxH !== undefined ? { maxHeight: maxH } : undefined}
+    >
       {showDelete && (
         <button
           className={`${styles.deleteAction} ${side === 'left' ? styles.deleteLeft : styles.deleteRight}`}
@@ -121,7 +142,7 @@ export function ItemCard({ item, onDelete, isOpen = false, onOpenChange }: ItemC
       <div
         className={styles.card}
         data-testid="item-card"
-        style={{ transform: `translateX(${dx}px)`, transition: isDragging ? 'none' : undefined }}
+        style={cardStyle}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}

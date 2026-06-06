@@ -3,6 +3,11 @@
   position: relative;
   overflow: hidden;
   border-radius: 9px;
+  transition: max-height .2s ease, opacity .2s ease;
+}
+/* delete: collapse the row's height so siblings slide up instead of jumping */
+.rowExiting {
+  opacity: 0;
 }
 
 .card {
@@ -14,7 +19,7 @@
   border-radius: 9px;
   background: linear-gradient(150deg, var(--surface), var(--surface-3));
   touch-action: pan-y;
-  transition: transform .2s ease, border-color .15s, box-shadow .15s;
+  transition: transform .2s ease, opacity .2s ease, border-color .15s, box-shadow .15s;
 }
 
 /* red Delete revealed by swiping the card aside (iOS Notes pattern) */
