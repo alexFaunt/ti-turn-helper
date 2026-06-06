@@ -184,10 +184,12 @@ Multiple concurrent games supported.
 - Long-press any item → confirmation modal → removes from owned
 
 ### Production Calculator (within Production context view)
-- Appears below reminders (consistent: reminders always first, tools below)
-- Unit picker: tap to add/remove unit types
-- Shows: total cost (with modifiers applied), production capacity required
-- Uses upgraded unit stats when upgrade tech is owned (derived from ownedTechIds)
+- Appears above the reminders (tool first, then the filtered reminder list)
+- Unit picker: tap to add/remove producible unit types. Structures (PDS, space docks) are excluded — placed via Construction, not produced
+- Tech-gated units (War Sun) are always listed but their stepper is disabled until the unlocking tech is owned
+- Fighters/infantry are produced two-per-cost: a lone one still costs the whole pair, so odd counts round up
+- Shows total cost with modifiers: Sarween Tools (−1, incl. the Ω variant) and AI Development Algorithm (optional toggle, −1 per owned unit-upgrade tech)
+- Uses upgraded unit stats/name when the upgrade tech is owned (derived from ownedTechIds)
 
 ### Status Phase View
 - Same grouped-reminder pattern, ordered by status phase steps:
