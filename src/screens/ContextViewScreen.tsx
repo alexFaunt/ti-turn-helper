@@ -2,33 +2,26 @@ import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useGameContext } from '../hooks/use-game-context'
 import { WindowGroupDisplay } from '../components/WindowGroupDisplay'
-import { ConfirmModal } from '../components/ConfirmModal'
 import { ProductionCalculator } from '../components/ProductionCalculator'
 import { windowLabel } from '../engine'
 import { loadFactions } from '../data'
 import styles from './ContextViewScreen.module.css'
-
-interface PendingRemoval {
-  itemId: string
-  itemName: string
-}
 
 export function ContextViewScreen() {
   const { gameId, windowPrefix } = useParams<{ gameId: string; windowPrefix: string }>()
   const navigate = useNavigate()
   const decodedPrefix = decodeURIComponent(windowPrefix ?? '')
   const { game, groups, loading, removeItem } = useGameContext(gameId, decodedPrefix)
-  const [pendingRemoval, setPendingRemoval] = useState<PendingRemoval | null>(null)
+  // id of the card currently swiped open — only one at a time
+  const [openId, setOpenId] = useState<string | null>(null)
 
-  function handleLongPress(itemId: string, itemName: string) {
-    setPendingRemoval({ itemId, itemName })
+  function handleOpenChange(itemId: string, open: boolean) {
+    setOpenId(open ? itemId : null)
   }
 
-  async function handleConfirmRemove() {
-    if (pendingRemoval) {
-      await removeItem(pendingRemoval.itemId)
-      setPendingRemoval(null)
-    }
+  async function handleDelete(itemId: string) {
+    await removeItem(itemId)
+    setOpenId(null)
   }
 
   if (loading) return <div className={styles.loading}>Loading...</div>
@@ -54,7 +47,7 @@ export function ContextViewScreen() {
         </div>
       </header>
 
-      <div className={styles.content}>
+      <div className={styles.content} onClick={() => setOpenId(null)}>
         {groups.length === 0 ? (
           <p className={styles.empty}>No relevant items</p>
         ) : (
@@ -62,7 +55,9 @@ export function ContextViewScreen() {
             <WindowGroupDisplay
               key={group.window}
               group={group}
-              onLongPressItem={handleLongPress}
+              openId={openId}
+              onOpenChange={handleOpenChange}
+              onDeleteItem={handleDelete}
             />
           ))
         )}
@@ -73,14 +68,6 @@ export function ContextViewScreen() {
           />
         )}
       </div>
-
-      {pendingRemoval && (
-        <ConfirmModal
-          message={`Remove "${pendingRemoval.itemName}" from your game?`}
-          onConfirm={handleConfirmRemove}
-          onCancel={() => setPendingRemoval(null)}
-        />
-      )}
     </div>
   )
 }
