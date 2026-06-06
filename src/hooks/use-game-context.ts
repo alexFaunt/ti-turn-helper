@@ -2,7 +2,8 @@ import { useState, useEffect, useCallback } from 'react'
 import { getGame, updateGame } from '../db'
 import {
   loadTechnologies, loadActionCards, loadFactions,
-  loadPromissoryNotes, loadRelics, resolveOmegaReplacements,
+  loadPromissoryNotes, loadRelics, loadLaws, resolveOmegaReplacements,
+  filterByExpansion,
 } from '../data'
 import {
   resolveDisplayableItems, filterByContext, groupByWindow,
@@ -27,11 +28,12 @@ export function useGameContext(gameId: string | undefined, windowPrefix: string)
     const technologies = resolveOmegaReplacements(loadTechnologies(), g.expansions)
     const actionCards = resolveOmegaReplacements(loadActionCards(), g.expansions)
     const promissoryNotes = resolveOmegaReplacements(loadPromissoryNotes(), g.expansions)
-    const relics = loadRelics().filter(r => g.expansions.includes(r.source as never))
+    const relics = filterByExpansion(loadRelics(), g.expansions)
     const factions = loadFactions().filter(f => g.expansions.includes(f.source as never))
+    const laws = loadLaws(g.expansions)
 
     const allDisplayable = resolveDisplayableItems(g, {
-      technologies, actionCards, promissoryNotes, relics, factions,
+      technologies, actionCards, promissoryNotes, relics, factions, laws,
     })
     const filtered = filterByContext(allDisplayable, windowPrefix)
     return groupByWindow(filtered)

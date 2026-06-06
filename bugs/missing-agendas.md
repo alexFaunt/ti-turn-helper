@@ -1,6 +1,8 @@
 # Missing: Agendas / Laws category in Manage
 
-**Status:** open · feature gap (not a regression)
+**Status:** RESOLVED (522a52c) — Laws tab added; enacted laws w/ playTimings surface in
+context views; `removedByPok` now respected. See
+`docs/superpowers/specs/2026-06-05-agenda-laws-manage-tab-design.md`.
 **Severity:** medium — whole item category can't be tracked
 
 ## Symptom

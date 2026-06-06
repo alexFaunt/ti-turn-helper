@@ -15,6 +15,7 @@ const SOURCE_TYPE_LABELS: Record<string, string> = {
   relic: 'Relic',
   mech: 'Mech',
   unit_ability: 'Unit',
+  law: 'Law',
 }
 
 export function ItemCard({ item, onLongPress }: ItemCardProps) {
