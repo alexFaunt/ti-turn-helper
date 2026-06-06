@@ -14,6 +14,15 @@ export const ITEM_SOURCE_TYPES = [
 ] as const
 export type ItemSourceType = (typeof ITEM_SOURCE_TYPES)[number]
 
+/** Item types the user owns and can remove from their game (mirrors useGameContext.removeItem). */
+const REMOVABLE_SOURCE_TYPES = new Set<ItemSourceType>([
+  'tech', 'action_card', 'promissory_note', 'relic',
+])
+
+export function isRemovableSourceType(t: ItemSourceType): boolean {
+  return REMOVABLE_SOURCE_TYPES.has(t)
+}
+
 export interface DisplayableItem {
   id: string
   name: string
