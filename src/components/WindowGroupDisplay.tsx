@@ -20,6 +20,7 @@ export function WindowGroupDisplay({ group, openId, onOpenChange, onDeleteItem }
           <ItemCard
             key={item.id}
             item={item}
+            window={group.window}
             isOpen={openId === item.id}
             onOpenChange={open => onOpenChange?.(item.id, open)}
             onDelete={

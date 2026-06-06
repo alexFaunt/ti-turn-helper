@@ -25,6 +25,7 @@ export async function createGame(input: CreateGameInput): Promise<string> {
     ownedActionCards: [],
     ownedPromissoryNoteIds: [],
     ownedRelicIds: [],
+    enactedLawIds: [],
     leaderStates: buildInitialLeaderStates(faction),
   }
 

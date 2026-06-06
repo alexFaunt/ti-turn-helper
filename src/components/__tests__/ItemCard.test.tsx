@@ -60,6 +60,33 @@ describe('ItemCard', () => {
     expect(screen.getByText('When producing')).toBeInTheDocument()
   })
 
+  const multiWindowItem: DisplayableItem = {
+    id: 'war-sun',
+    name: 'War Sun',
+    description: 'big ship',
+    sourceType: 'tech',
+    playTimings: [
+      { wording: 'BOMBARDMENT 3 (x3)', window: 'tactical.invasion.bombardment', timing: 'during', mustBeActivePlayer: true },
+      { wording: 'Combat 3 (x3)', window: 'tactical.space_combat.combat_rolls', timing: 'during', mustBeActivePlayer: true },
+    ],
+  }
+
+  it('shows the wording matching the given window (not always the first)', () => {
+    render(<ItemCard item={multiWindowItem} window="tactical.space_combat.combat_rolls" />)
+    expect(screen.getByText('Combat 3 (x3)')).toBeInTheDocument()
+    expect(screen.queryByText('BOMBARDMENT 3 (x3)')).not.toBeInTheDocument()
+  })
+
+  it('falls back to the first wording when window has no matching timing', () => {
+    render(<ItemCard item={multiWindowItem} window="tactical.production" />)
+    expect(screen.getByText('BOMBARDMENT 3 (x3)')).toBeInTheDocument()
+  })
+
+  it('uses the first wording when no window prop is given', () => {
+    render(<ItemCard item={multiWindowItem} />)
+    expect(screen.getByText('BOMBARDMENT 3 (x3)')).toBeInTheDocument()
+  })
+
   it('renders all source type labels correctly', () => {
     const sourceTypes = [
       { sourceType: 'action_card' as const, label: 'Action Card' },

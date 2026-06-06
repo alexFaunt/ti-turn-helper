@@ -22,7 +22,15 @@
     "type": "law",
     "electionType": "player",
     "description": "The elected player gains this card.\n\nBefore players vote on an agenda that requires a player to be elected, the owner of this card may discard this card to choose a player to be elected. Players do not vote on that agenda.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "Discard to choose a player to skip this vote",
+        "window": "agenda",
+        "timing": "before",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "conventions-of-war",
@@ -31,7 +39,15 @@
     "electionType": "for-or-against",
     "for": "Players cannot use BOMBARDMENT against units that are on cultural planets.",
     "against": "Each player that voted \"Against\" discards all of their action cards.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "Cannot BOMBARD units on cultural planets",
+        "window": "tactical.invasion.bombardment",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "core-mining",
@@ -58,7 +74,15 @@
     "electionType": "for-or-against",
     "for": "Alpha and beta wormholes have no effect during movement.",
     "against": "Destroy each PDS in or adjacent to a system that contains a wormhole.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "Alpha/beta wormholes have no effect on movement",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "executive-sanctions",
@@ -102,7 +126,15 @@
     "type": "law",
     "electionType": "player",
     "description": "The elected player gains this card.\n\nAt the end of the strategy phase, the owner of this card may discard this card to swap 1 of their strategy cards with 1 of another player's strategy cards.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "Discard to swap a strategy card with another player",
+        "window": "strategy",
+        "timing": "end",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "minister-of-commerce",
@@ -126,7 +158,15 @@
     "type": "law",
     "electionType": "player",
     "description": "The elected player gains this card.\n\nWhen the owner of this card places a space dock in a system, their units in that system may use their PRODUCTION abilities.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "Placing a space dock: your units there may use PRODUCTION",
+        "window": "tactical.production",
+        "timing": "when",
+        "mustBeActivePlayer": true
+      }
+    ]
   },
   {
     "id": "minister-of-peace",
@@ -142,7 +182,15 @@
     "type": "law",
     "electionType": "player",
     "description": "The elected player gains this card.\n\nAt the end of the status phase, the owner of this card draws 1 action card.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "Draw 1 action card",
+        "window": "status.draw_action_cards",
+        "timing": "end",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "minister-of-sciences",
@@ -150,7 +198,15 @@
     "type": "law",
     "electionType": "player",
     "description": "The elected player gains this card.\n\nWhen the owner of this card resolves the primary or secondary ability of the \"Technology\" strategy card, they do not need to spend resources to research technology.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "Free research with the Technology strategy card",
+        "window": "strategy",
+        "timing": "when",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "minister-of-war",
@@ -166,7 +222,21 @@
     "type": "law",
     "electionType": "player",
     "description": "The elected player gains this card.\n\nThe owner of this card applies +1 to the result of their fighter's combat rolls. When the owner of this card uses PRODUCTION, they discard this card unless they produce 2 or more fighters.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "+1 to your fighters' combat rolls",
+        "window": "tactical.space_combat.combat_rolls",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      },
+      {
+        "wording": "Discard unless you produce 2+ fighters",
+        "window": "tactical.production",
+        "timing": "when",
+        "mustBeActivePlayer": true
+      }
+    ]
   },
   {
     "id": "publicize-weapon-schematics",
@@ -175,7 +245,15 @@
     "electionType": "for-or-against",
     "for": "If any player owns a war sun technology, all players may ignore all prerequisites on war sun technologies. All war suns lose SUSTAIN DAMAGE.",
     "against": "Each player that owns a war sun technology discards all of their action cards.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "All war suns lose SUSTAIN DAMAGE",
+        "window": "tactical.space_combat.assign_hits",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "regulated-conscription",
@@ -184,7 +262,15 @@
     "electionType": "for-or-against",
     "for": "When a player produces units, they produce only 1 fighter and infantry for its cost instead of 2.",
     "against": "No effect.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "Produce only 1 fighter/infantry per cost (not 2)",
+        "window": "tactical.production",
+        "timing": "when",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "representative-government",
@@ -194,7 +280,15 @@
     "for": "Players cannot exhaust planets to cast votes during the agenda phase. Each player may cast 1 vote on each agenda instead.",
     "against": "At the start of the next strategy phase, each player that voted \"Against\" exhausts all of their cultural planets.",
     "source": "base",
-    "removedByPok": true
+    "removedByPok": true,
+    "playTimings": [
+      {
+        "wording": "Can't exhaust planets to vote; cast 1 vote each",
+        "window": "agenda",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "research-team-biotic",
@@ -257,7 +351,15 @@
     "electionType": "for-or-against",
     "for": "Each player's units can move through nebulae.",
     "against": "Each player places a command token from their reinforcements in their home system, if able.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "Your units can move through nebulae",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "terraforming-initiative",
@@ -293,7 +395,15 @@
     "electionType": "for-or-against",
     "for": "All systems that contain either an alpha or beta wormhole are adjacent to each other.",
     "against": "Each player places a command token from their reinforcements in each system that contains a wormhole and 1 or more of their ships.",
-    "source": "base"
+    "source": "base",
+    "playTimings": [
+      {
+        "wording": "All alpha/beta wormhole systems are adjacent",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "archived-secret",
@@ -441,7 +551,15 @@
     "electionType": "for-or-against",
     "for": "All mechs lose their printed abilities except for SUSTAIN DAMAGE.",
     "against": "Each player that voted \"For\" gains 3 trade goods.",
-    "source": "pok"
+    "source": "pok",
+    "playTimings": [
+      {
+        "wording": "Mechs lose printed abilities except SUSTAIN DAMAGE",
+        "window": "tactical.invasion.ground_combat",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "checks-and-balances",
@@ -450,7 +568,15 @@
     "electionType": "for-or-against",
     "for": "When a player chooses a strategy card during the strategy phase, they give that strategy card to another player that does not have 1 (or a player that does not have 2 in a three- or four-player game), if able.",
     "against": "Each player readies only 3 of their planets at the end of this agenda phase.",
-    "source": "pok"
+    "source": "pok",
+    "playTimings": [
+      {
+        "wording": "Pass chosen strategy card to a player without one",
+        "window": "strategy",
+        "timing": "when",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "nexus-sovereignty",
@@ -459,7 +585,15 @@
     "electionType": "for-or-against",
     "for": "Alpha and beta wormholes in the wormhole nexus have no effect during movement.",
     "against": "Place a gamma wormhole token in the Mecatol Rex system.",
-    "source": "pok"
+    "source": "pok",
+    "playTimings": [
+      {
+        "wording": "Wormhole Nexus alpha/beta wormholes have no effect on movement",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "political-censure",
@@ -477,7 +611,15 @@
     "for": "Players cannot exhaust planets to cast votes during the agenda phase; each player may cast 1 vote on each agenda instead. Players cannot cast additional votes.",
     "against": "At the start of the next strategy phase, each player that voted \"Against\" exhausts all of their cultural planets.",
     "source": "pok",
-    "replaces": "representative-government"
+    "replaces": "representative-government",
+    "playTimings": [
+      {
+        "wording": "Can't exhaust planets to vote; cast 1 vote each",
+        "window": "agenda",
+        "timing": "during",
+        "mustBeActivePlayer": false
+      }
+    ]
   },
   {
     "id": "search-warrant",
@@ -521,8 +663,8 @@
     "source": "pok"
   },
   {
-    "id": "minister-of-antiques",
-    "name": "Minister of Antiques",
+    "id": "minister-of-antiquities",
+    "name": "Minister of Antiquities",
     "type": "directive",
     "electionType": "player",
     "description": "The elected player gains 1 relic.",

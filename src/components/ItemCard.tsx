@@ -10,6 +10,9 @@ interface ItemCardProps {
   /** Controlled by the parent to keep only one card open at a time. */
   isOpen?: boolean
   onOpenChange?: (open: boolean) => void
+  /** Window of the group this card is rendered under. Selects the matching playTiming's
+   *  wording so multi-window items show the relevant line (not always the first). */
+  window?: string
 }
 
 const SOURCE_TYPE_LABELS: Record<string, string> = {
@@ -21,6 +24,7 @@ const SOURCE_TYPE_LABELS: Record<string, string> = {
   relic: 'Relic',
   mech: 'Mech',
   unit_ability: 'Unit',
+  law: 'Law',
 }
 
 const REVEAL_WIDTH = 80   // px the card slides to expose the Delete button
@@ -28,7 +32,7 @@ const OPEN_THRESHOLD = 40 // px of horizontal travel needed to snap open
 const AXIS_SLOP = 6       // px before we commit to a horizontal/vertical axis
 const EXIT_MS = 240       // fly-off + collapse duration before the item is removed
 
-export function ItemCard({ item, onDelete, isOpen = false, onOpenChange }: ItemCardProps) {
+export function ItemCard({ item, onDelete, isOpen = false, onOpenChange, window }: ItemCardProps) {
   const removable = !!onDelete
   const [dx, setDx] = useState(0)
   const [side, setSide] = useState<'left' | 'right' | null>(null)
@@ -44,6 +48,10 @@ export function ItemCard({ item, onDelete, isOpen = false, onOpenChange }: ItemC
   // mirror of dx so touchend reads the latest offset even when no re-render
   // happened between touchmove and touchend (e.g. a fast flick in one frame)
   const dxRef = useRef(0)
+
+  // pick the wording for the window this card is shown under (multi-window items)
+  const timing = (window && item.playTimings.find(pt => pt.window === window))
+    || item.playTimings[0]
 
   function setOffset(v: number) {
     dxRef.current = v
@@ -154,8 +162,8 @@ export function ItemCard({ item, onDelete, isOpen = false, onOpenChange }: ItemC
             {SOURCE_TYPE_LABELS[item.sourceType] ?? item.sourceType}
           </span>
         </div>
-        {item.playTimings[0] && (
-          <p className={styles.timing}>{item.playTimings[0].wording}</p>
+        {timing && (
+          <p className={styles.timing}>{timing.wording}</p>
         )}
         <p className={styles.description}>{item.description}</p>
       </div>

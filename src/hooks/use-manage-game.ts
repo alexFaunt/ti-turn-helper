@@ -2,10 +2,10 @@ import { useState, useEffect, useCallback } from 'react'
 import { getGame, updateGame } from '../db'
 import {
   loadTechnologies, loadActionCards, loadFactions,
-  loadPromissoryNotes, loadRelics, resolveOmegaReplacements,
+  loadPromissoryNotes, loadRelics, loadLaws, resolveOmegaReplacements,
   filterByExpansion,
 } from '../data'
-import type { Game, Technology, ActionCard, PromissoryNote, Relic, Faction } from '../types'
+import type { Game, Technology, ActionCard, PromissoryNote, Relic, Faction, Agenda } from '../types'
 
 interface UseManageGameResult {
   game: Game | null
@@ -14,12 +14,14 @@ interface UseManageGameResult {
   actionCards: ActionCard[]
   promissoryNotes: PromissoryNote[]
   relics: Relic[]
+  laws: Agenda[]
   loading: boolean
   toggleTech: (techId: string) => Promise<void>
   adjustActionCard: (cardId: string, delta: number) => Promise<void>
   togglePromissoryNote: (noteId: string) => Promise<void>
   toggleRelic: (relicId: string) => Promise<void>
   toggleLeader: (leaderName: string) => Promise<void>
+  toggleLaw: (lawId: string) => Promise<void>
 }
 
 export function useManageGame(gameId: string | undefined): UseManageGameResult {
@@ -54,6 +56,10 @@ export function useManageGame(gameId: string | undefined): UseManageGameResult {
 
   const relics = game
     ? filterByExpansion(loadRelics(), game.expansions)
+    : []
+
+  const laws = game
+    ? loadLaws(game.expansions)
     : []
 
   const persist = useCallback(async (updated: Game) => {
@@ -117,8 +123,17 @@ export function useManageGame(gameId: string | undefined): UseManageGameResult {
     await persist({ ...game, leaderStates })
   }, [game, persist])
 
+  const toggleLaw = useCallback(async (lawId: string) => {
+    if (!game) return
+    const current = game.enactedLawIds ?? []
+    const enactedLawIds = current.includes(lawId)
+      ? current.filter(id => id !== lawId)
+      : [...current, lawId]
+    await persist({ ...game, enactedLawIds })
+  }, [game, persist])
+
   return {
-    game, faction, techs, actionCards, promissoryNotes, relics, loading,
-    toggleTech, adjustActionCard, togglePromissoryNote, toggleRelic, toggleLeader,
+    game, faction, techs, actionCards, promissoryNotes, relics, laws, loading,
+    toggleTech, adjustActionCard, togglePromissoryNote, toggleRelic, toggleLeader, toggleLaw,
   }
 }

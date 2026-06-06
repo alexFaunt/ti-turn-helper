@@ -83,6 +83,20 @@ export interface Relic {
   playTimings?: PlayTiming[]
 }
 
+export interface Agenda {
+  id: string
+  name: string
+  type: 'law' | 'directive'
+  electionType: string
+  for?: string
+  against?: string
+  description?: string
+  source: string
+  removedByPok?: boolean
+  replaces?: string
+  playTimings?: PlayTiming[]
+}
+
 export interface Unit {
   id: string
   name: string

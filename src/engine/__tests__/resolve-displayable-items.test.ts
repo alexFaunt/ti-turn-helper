@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { resolveDisplayableItems } from '../resolve-displayable-items'
 import type { Game } from '../../types'
-import type { Technology, ActionCard, Faction, PromissoryNote, Relic } from '../../types'
+import type { Technology, ActionCard, Faction, PromissoryNote, Relic, Agenda } from '../../types'
 import type { AllItems } from '../resolve-displayable-items'
 
 const combatTiming = {
@@ -106,6 +106,25 @@ const mockRelic: Relic = {
   playTimings: [productionTiming],
 }
 
+const mockLaw: Agenda = {
+  id: 'prophecy-of-ixth',
+  name: 'Prophecy of Ixth',
+  type: 'law',
+  electionType: 'player',
+  description: '+1 to fighter combat rolls',
+  source: 'base',
+  playTimings: [combatTiming],
+}
+
+const mockLawNoTimings: Agenda = {
+  id: 'executive-sanctions',
+  name: 'Executive Sanctions',
+  type: 'law',
+  electionType: 'for-or-against',
+  for: 'Max 3 action cards in hand',
+  source: 'base',
+}
+
 function makeGame(overrides: Partial<Game> = {}): Game {
   return {
     id: 'test-game',
@@ -117,6 +136,7 @@ function makeGame(overrides: Partial<Game> = {}): Game {
     ownedActionCards: [{ id: 'direct-hit', quantity: 1 }],
     ownedPromissoryNoteIds: ['trade-agreement'],
     ownedRelicIds: ['maw-of-worlds'],
+    enactedLawIds: [],
     leaderStates: {
       'Evelyn Delouis': 'unlocked',
       'Claire Gibson': 'locked',
@@ -132,6 +152,7 @@ function makeAllItems(overrides: Partial<AllItems> = {}): AllItems {
     promissoryNotes: [mockPromissoryNote],
     relics: [mockRelic],
     factions: [mockFaction],
+    laws: [mockLaw, mockLawNoTimings],
     ...overrides,
   }
 }
@@ -202,12 +223,41 @@ describe('resolveDisplayableItems', () => {
     expect(relics[0]!.id).toBe('maw-of-worlds')
   })
 
+  it('includes enacted laws with playTimings', () => {
+    const game = makeGame({ enactedLawIds: ['prophecy-of-ixth'] })
+    const result = resolveDisplayableItems(game, makeAllItems())
+    const lawItems = result.filter(i => i.sourceType === 'law')
+    expect(lawItems).toHaveLength(1)
+    expect(lawItems[0]!.id).toBe('prophecy-of-ixth')
+    expect(lawItems[0]!.description).toBe('+1 to fighter combat rolls')
+  })
+
+  it('excludes enacted laws without playTimings', () => {
+    const game = makeGame({ enactedLawIds: ['prophecy-of-ixth', 'executive-sanctions'] })
+    const result = resolveDisplayableItems(game, makeAllItems())
+    const lawItems = result.filter(i => i.sourceType === 'law')
+    expect(lawItems.map(l => l.id)).toEqual(['prophecy-of-ixth'])
+  })
+
+  it('excludes laws that are not enacted', () => {
+    const result = resolveDisplayableItems(makeGame(), makeAllItems())
+    expect(result.filter(i => i.sourceType === 'law')).toHaveLength(0)
+  })
+
+  it('tolerates legacy games with no enactedLawIds field', () => {
+    const game = makeGame()
+    delete (game as Partial<Game>).enactedLawIds
+    const result = resolveDisplayableItems(game, makeAllItems())
+    expect(result.filter(i => i.sourceType === 'law')).toHaveLength(0)
+  })
+
   it('returns empty when game owns nothing', () => {
     const game = makeGame({
       ownedTechIds: [],
       ownedActionCards: [],
       ownedPromissoryNoteIds: [],
       ownedRelicIds: [],
+      enactedLawIds: [],
       factionId: 'nonexistent',
       leaderStates: {},
     })

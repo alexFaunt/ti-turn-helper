@@ -10,7 +10,7 @@ export interface PlayTiming {
 
 export const ITEM_SOURCE_TYPES = [
   'tech', 'action_card', 'faction_ability', 'promissory_note',
-  'leader', 'relic', 'mech', 'unit_ability',
+  'leader', 'relic', 'mech', 'unit_ability', 'law',
 ] as const
 export type ItemSourceType = (typeof ITEM_SOURCE_TYPES)[number]
 
