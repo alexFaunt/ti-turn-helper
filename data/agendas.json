@@ -25,7 +25,7 @@
     "source": "base",
     "playTimings": [
       {
-        "wording": "Discard to choose the elected player (skip the vote)",
+        "wording": "Discard to choose a player to skip this vote",
         "window": "agenda",
         "timing": "before",
         "mustBeActivePlayer": false
