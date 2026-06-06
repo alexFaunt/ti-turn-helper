@@ -87,7 +87,7 @@
     "trait": "industrial",
     "resources": 1,
     "influence": 1,
-    "techSpecialty": "yellow",
+    "techSpecialty": "blue",
     "flavorText": "Backwater planet with modest resources and an unassuming populace. Most noted for the reliable and affordable vehicles produced in its factories.",
     "source": "base"
   },
@@ -162,7 +162,7 @@
     "trait": "hazardous",
     "resources": 1,
     "influence": 3,
-    "techSpecialty": "blue",
+    "techSpecialty": "red",
     "flavorText": "Unstable radiation belts create hazardous living conditions but facilitate research in the electro-quantum propulsion technologies.",
     "source": "base"
   },
