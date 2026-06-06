@@ -48,6 +48,9 @@ export function ContextViewScreen() {
       </header>
 
       <div className={styles.content} onClick={() => setOpenId(null)}>
+        {decodedPrefix === 'tactical.production' && (
+          <ProductionCalculator ownedTechIds={game?.ownedTechIds ?? []} />
+        )}
         {groups.length === 0 ? (
           <p className={styles.empty}>No relevant items</p>
         ) : (
@@ -60,12 +63,6 @@ export function ContextViewScreen() {
               onDeleteItem={handleDelete}
             />
           ))
-        )}
-        {decodedPrefix === 'tactical.production' && (
-          <ProductionCalculator
-            hasSarween={game?.ownedTechIds.includes('sarween-tools') ?? false}
-            ownedTechIds={game?.ownedTechIds ?? []}
-          />
         )}
       </div>
     </div>

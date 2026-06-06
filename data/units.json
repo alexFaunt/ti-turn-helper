@@ -15,7 +15,8 @@
     "move": 2,
     "capacity": 6,
     "abilities": ["SUSTAIN DAMAGE", "BOMBARDMENT 3 (x3)"],
-    "source": "base"
+    "source": "base",
+    "techId": "war-sun"
   },
   {
     "id": "dreadnought-1",

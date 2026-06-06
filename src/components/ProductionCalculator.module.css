@@ -33,6 +33,16 @@
   color: var(--text);
 }
 
+.locked {
+  opacity: 0.4;
+}
+.locked .unitName {
+  color: var(--muted);
+}
+.locked .controls button {
+  cursor: not-allowed;
+}
+
 .controls {
   display: flex;
   align-items: center;
@@ -56,6 +66,27 @@
   min-width: 1.5rem;
   text-align: center;
   color: var(--accent);
+}
+
+.modifierRow {
+  margin-top: 0.85rem;
+}
+
+.toggle {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: .5px;
+  padding: 0.35rem 0.7rem;
+  color: var(--text);
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  cursor: pointer;
+}
+.toggle:hover { border-color: var(--accent-dim); color: var(--accent); }
+.toggleOn {
+  border-color: var(--gold);
+  color: var(--gold);
 }
 
 .summary {
