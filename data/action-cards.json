@@ -288,6 +288,12 @@
         "window": "tactical.activation",
         "timing": "after",
         "mustBeActivePlayer": true
+      },
+      {
+        "wording": "After you activate a system:",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": true
       }
     ],
     "count": 4,
@@ -367,6 +373,12 @@
         "wording": "After you activate a system:",
         "window": "tactical.activation",
         "timing": "after",
+        "mustBeActivePlayer": true
+      },
+      {
+        "wording": "After you activate a system:",
+        "window": "tactical.movement",
+        "timing": "during",
         "mustBeActivePlayer": true
       }
     ],
@@ -463,6 +475,12 @@
         "wording": "After you activate a system:",
         "window": "tactical.activation",
         "timing": "after",
+        "mustBeActivePlayer": true
+      },
+      {
+        "wording": "After you activate a system:",
+        "window": "tactical.movement",
+        "timing": "during",
         "mustBeActivePlayer": true
       }
     ],
@@ -1224,6 +1242,12 @@
         "window": "tactical.activation",
         "timing": "after",
         "mustBeActivePlayer": true
+      },
+      {
+        "wording": "After you activate a system:",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": true
       }
     ],
     "count": 1,
@@ -1399,6 +1423,12 @@
         "wording": "After you activate a system:",
         "window": "tactical.activation",
         "timing": "after",
+        "mustBeActivePlayer": true
+      },
+      {
+        "wording": "After you activate a system:",
+        "window": "tactical.movement",
+        "timing": "during",
         "mustBeActivePlayer": true
       }
     ],
@@ -1766,7 +1796,7 @@
   },
   {
     "id": "fighter-conscription-omega",
-    "name": "Master Plan \u03a9",
+    "name": "Fighter Conscription \u03a9",
     "description": "Place 1 fighter from your reinforcements in each system that contains 1 or more of your space docks or ships that have a capacity value; they cannot be placed in systems that contain other players' ships.",
     "playTiming": "As an Action:",
     "playTimings": [
@@ -1779,11 +1809,11 @@
     ],
     "count": 1,
     "source": "codex-3",
-    "replaces": "master-plan"
+    "replaces": "fighter-conscription"
   },
   {
     "id": "blitz-omega",
-    "name": "Master Plan \u03a9",
+    "name": "Blitz \u03a9",
     "description": "Each of your non-fighter ships in the active system that does not have BOMBARDMENT gains BOMBARDMENT 6 until the end of the invasion.",
     "playTiming": "At the start of an invasion:",
     "playTimings": [
@@ -1796,11 +1826,11 @@
     ],
     "count": 1,
     "source": "codex-3",
-    "replaces": "master-plan"
+    "replaces": "blitz"
   },
   {
     "id": "hack-election-omega",
-    "name": "Master Plan \u03a9",
+    "name": "Hack Election \u03a9",
     "description": "During this agenda, you vote last.",
     "playTiming": "After an agenda is revealed:",
     "playTimings": [
@@ -1813,11 +1843,11 @@
     ],
     "count": 1,
     "source": "codex-3",
-    "replaces": "master-plan"
+    "replaces": "hack-election"
   },
   {
     "id": "solar-flare-omega",
-    "name": "Master Plan \u03a9",
+    "name": "Solar Flare \u03a9",
     "description": "During the \"Movement\" step of this tactical action, other players cannot use SPACE CANNON against your ships.",
     "playTiming": "After you activate a system:",
     "playTimings": [
@@ -1826,15 +1856,21 @@
         "window": "tactical.activation",
         "timing": "after",
         "mustBeActivePlayer": true
+      },
+      {
+        "wording": "After you activate a system:",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": true
       }
     ],
     "count": 1,
     "source": "codex-3",
-    "replaces": "master-plan"
+    "replaces": "solar-flare"
   },
   {
     "id": "counterstroke-omega",
-    "name": "Master Plan \u03a9",
+    "name": "Counterstroke \u03a9",
     "description": "Return that command token to your tactic pool.",
     "playTiming": "After another player activates a system that contains 1 of your command tokens:",
     "playTimings": [
@@ -1847,11 +1883,11 @@
     ],
     "count": 1,
     "source": "codex-3",
-    "replaces": "master-plan"
+    "replaces": "counterstroke"
   },
   {
     "id": "ghost-squad-omega",
-    "name": "Master Plan \u03a9",
+    "name": "Ghost Squad \u03a9",
     "description": "Move any number of ground forces from any planet you control in the active system to any other planet you control in the active system.",
     "playTiming": "After another player commits units to land on a planet you control:",
     "playTimings": [
@@ -1864,11 +1900,11 @@
     ],
     "count": 1,
     "source": "codex-3",
-    "replaces": "master-plan"
+    "replaces": "ghost-squad"
   },
   {
     "id": "war-machine-omega",
-    "name": "Master Plan \u03a9",
+    "name": "War Machine \u03a9",
     "description": "Apply +4 to the total PRODUCTION value of those units and reduce the combined cost of the produced units by 1.",
     "playTiming": "When 1 or more of your units use PRODUCTION:",
     "playTimings": [
@@ -1881,6 +1917,6 @@
     ],
     "count": 4,
     "source": "codex-3",
-    "replaces": "master-plan"
+    "replaces": "war-machine"
   }
 ]

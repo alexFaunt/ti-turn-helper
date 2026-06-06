@@ -173,6 +173,12 @@
         "window": "tactical.activation",
         "timing": "after",
         "mustBeActivePlayer": true
+      },
+      {
+        "wording": "Apply +1 move to 1 of your ships",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": true
       }
     ]
   },
@@ -1093,6 +1099,12 @@
         "window": "tactical.activation",
         "timing": "after",
         "mustBeActivePlayer": true
+      },
+      {
+        "wording": "Exhaust: activated system is adjacent to all systems with your units",
+        "window": "tactical.movement",
+        "timing": "during",
+        "mustBeActivePlayer": true
       }
     ]
   },
@@ -1341,6 +1353,12 @@
         "wording": "Apply +1 move to all ships when you/neighbor activates adjacent to anomaly",
         "window": "tactical.activation",
         "timing": "after",
+        "mustBeActivePlayer": false
+      },
+      {
+        "wording": "Apply +1 move to all ships when you/neighbor activates adjacent to anomaly",
+        "window": "tactical.movement",
+        "timing": "during",
         "mustBeActivePlayer": false
       }
     ]
