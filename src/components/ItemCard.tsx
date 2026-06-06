@@ -4,6 +4,9 @@ import styles from './ItemCard.module.css'
 interface ItemCardProps {
   item: DisplayableItem
   onLongPress?: () => void
+  /** Window of the group this card is rendered under. Selects the matching playTiming's
+   *  wording so multi-window items show the relevant line (not always the first). */
+  window?: string
 }
 
 const SOURCE_TYPE_LABELS: Record<string, string> = {
@@ -18,8 +21,11 @@ const SOURCE_TYPE_LABELS: Record<string, string> = {
   law: 'Law',
 }
 
-export function ItemCard({ item, onLongPress }: ItemCardProps) {
+export function ItemCard({ item, onLongPress, window }: ItemCardProps) {
   let pressTimer: ReturnType<typeof setTimeout> | null = null
+
+  const timing = (window && item.playTimings.find(pt => pt.window === window))
+    || item.playTimings[0]
 
   function handlePressStart() {
     pressTimer = setTimeout(() => { onLongPress?.() }, 500)
@@ -44,8 +50,8 @@ export function ItemCard({ item, onLongPress }: ItemCardProps) {
           {SOURCE_TYPE_LABELS[item.sourceType] ?? item.sourceType}
         </span>
       </div>
-      {item.playTimings[0] && (
-        <p className={styles.timing}>{item.playTimings[0].wording}</p>
+      {timing && (
+        <p className={styles.timing}>{timing.wording}</p>
       )}
       <p className={styles.description}>{item.description}</p>
     </div>
